@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "892248584825",
+    "project_id": "studyassistantapp-fb2c9",
+    "storage_bucket": "studyassistantapp-fb2c9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892248584825:android:0439b3f6fbe90ec79ddaa8",
+        "android_client_info": {
+          "package_name": "com.example.time4study"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ6Gu8_xieTL7FtFJ1jUJuj7xhNzvpNgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
