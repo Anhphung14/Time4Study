@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".FragmentMenu">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="FLIP"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/imageButton2"
+            android:background="@drawable/question" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/icon_setting" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+        <include
+            android:id="@+id/profileLayout"
+            layout="@layout/custom_user_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/custom_button_profile_edit"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:text="Profile Edit" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/GridViewMenu"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="10dp"
+        android:horizontalSpacing="20dp"
+        android:numColumns="3"
+        android:verticalSpacing="30dp" />
+
+</LinearLayout>

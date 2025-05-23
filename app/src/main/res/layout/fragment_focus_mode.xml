@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".FragmentTargetMode">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="15dp"
+        android:background="#AE82FF"
+        >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:text="FLIP"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/imageButton2"
+            android:background="@drawable/question"
+            android:backgroundTint="@color/white"/>
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+
+            android:background="@drawable/icon_setting"
+            android:backgroundTint="@color/white"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
