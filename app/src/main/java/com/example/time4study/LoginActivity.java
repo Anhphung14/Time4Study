@@ -1,6 +1,7 @@
 package com.example.time4study;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -44,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> signInLauncher;
 
+    private SharedPreferences preferences;
+    private static final String PREFS_NAME = "app_prefs";
+    private static final String THEME_KEY = "theme_mode";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,20 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Load theme
+        preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int themeMode = preferences.getInt(THEME_KEY, AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(themeMode);
+
+        // Kiểm tra trạng thái đăng nhập
+        if (preferences.getBoolean("isLoggedIn", false)) {
+            String uid = preferences.getString("userUid", null);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("userUid", uid);
+            startActivity(intent);
+            finish(); // Không quay lại LoginActivity nữa
+            return;
+        }
 
         init();
 
@@ -93,18 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
         // Đăng nhập bằng email/password
-        login_button.setOnClickListener(view -> {
-            String email = login_email.getText().toString().trim();
-            String password = login_password.getText().toString().trim();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
-            } else {
-                signInUser(email, password);
-            }
-        });
+        login_button.setOnClickListener(v -> loginUser());
 
         // Đăng nhập Google
         googleSignInButton.setOnClickListener(view -> {
@@ -190,6 +199,60 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Đăng nhập thất bại: " + task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     }
+                });
+    }
+
+    private void loginUser() {
+        String email = login_email.getText().toString().trim();
+        String password = login_password.getText().toString().trim();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            login_email.setError("Email không hợp lệ");
+            login_email.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6) {
+            login_password.setError("Mật khẩu tối thiểu 6 ký tự");
+            login_password.requestFocus();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(authResult -> {
+                    String uid = mAuth.getCurrentUser().getUid();
+
+                    // Lấy thêm thông tin user từ Firestore
+                    db.collection("users").document(uid).get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    String name = documentSnapshot.getString("name");
+
+                                    // ✅ Lưu trạng thái đăng nhập vào SharedPreferences
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putBoolean("isLoggedIn", true);
+                                    editor.putString("userUid", uid);
+                                    editor.putString("userName", name);
+                                    editor.putString("userEmail", email);
+                                    editor.apply();
+
+                                    // Chuyển sang MainActivity
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("userUid", uid);
+                                    intent.putExtra("userName", name);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(this, "Không tìm thấy dữ liệu người dùng", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Đăng nhập thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 }

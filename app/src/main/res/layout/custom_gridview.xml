@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/itemMenu"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="13dp"
         android:text="TextView" />
 </RelativeLayout>

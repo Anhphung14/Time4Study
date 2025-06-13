@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?android:attr/colorBackground"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -22,16 +22,17 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#A6A6A6" />
+            android:background="@color/cardBorderColor" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomnavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="?android:attr/colorBackground"
             app:menu="@menu/menu_navigation"
             app:itemBackground="@drawable/bottom_nav_item_background"
-            app:itemTextColor="@color/bottom_nav_item_text_color" />
+            app:itemTextColor="@color/bottom_nav_item_text_color"
+            />
     </LinearLayout>
 
     <!-- Nút thêm ghi chú nổi -->
@@ -43,6 +44,6 @@
         android:layout_margin="16dp"
         android:contentDescription="Thêm ghi chú"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/lavender"
-        />
+        app:backgroundTint="?attr/colorAccent"
+        app:tint="?android:attr/textColorPrimary" />
 </FrameLayout>

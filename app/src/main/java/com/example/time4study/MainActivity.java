@@ -1,6 +1,7 @@
 package com.example.time4study;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,10 +9,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.ViewPagerAdapter;
+import com.example.time4study.helper.CloudinaryConfig;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,12 +30,18 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private FloatingActionButton fabAddNote;
-
+    private SharedPreferences preferences;
+    private static final String PREFS_NAME = "app_prefs";
+    private static final String THEME_KEY = "theme_mode";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int themeMode = preferences.getInt(THEME_KEY, AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(themeMode);
 
+        CloudinaryConfig.init(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 

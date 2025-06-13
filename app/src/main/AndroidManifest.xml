@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Quyền ứng dụng -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -18,46 +17,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Time4Study"
         tools:targetApi="31">
-
-        <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HoSoActivity"
+            android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Màn hình đăng ký -->
+        </activity> <!-- Màn hình đăng ký -->
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" />
-
-        <!-- Màn hình quên mật khẩu -->
+            android:exported="false" /> <!-- Màn hình quên mật khẩu -->
         <activity
             android:name=".ForgotPasswordActivity"
-            android:exported="false" />
-
-        <!-- Màn hình chính -->
+            android:exported="false" /> <!-- Màn hình chính -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-
-        <!-- Ghi chú -->
+            android:exported="false" /> <!-- Ghi chú -->
         <activity
             android:name=".NotesActivity"
-            android:exported="false" />
-
-        <!-- Chỉnh sửa ghi chú -->
+            android:exported="false" /> <!-- Chỉnh sửa ghi chú -->
         <activity
             android:name=".EditNoteActivity"
             android:exported="false" />
-
-       
-
-
-
     </application>
 
 </manifest>

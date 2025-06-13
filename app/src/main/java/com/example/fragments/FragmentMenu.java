@@ -8,17 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.GridViewMenuAdapter;
 import com.example.Menu;
+import com.example.time4study.HoSoActivity;
 import com.example.time4study.LoginActivity;
 import com.example.time4study.NotesActivity;
 import com.example.time4study.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -28,7 +32,11 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class FragmentMenu extends Fragment {
-
+    private TextView textTen, textLink;
+    private ImageView imageHinh;
+    private Button buttonViewProfile;
+    private FirebaseFirestore db;
+    private String uid;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -83,6 +91,13 @@ public class FragmentMenu extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (uid != null) {
+            loadUserData(uid);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +107,21 @@ public class FragmentMenu extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
         GridView gridView = view.findViewById(R.id.GridViewMenu);
-        Button buttonLogout = view.findViewById(R.id.buttonLogout); // Gắn nút Logout
+        // Khởi tạo các thành phần từ custom_user_profile
+        textTen = view.findViewById(R.id.textTen);
+        textLink = view.findViewById(R.id.textLink);
+        imageHinh = view.findViewById(R.id.imageHinh);
+        buttonViewProfile= view.findViewById(R.id.buttonViewProfile);
+        // Khởi tạo Firestore
+        db = FirebaseFirestore.getInstance();
+
+        // Lấy UID từ MainActivity
+        uid = getActivity().getIntent().getStringExtra("userUid");
+        if (uid != null) {
+            loadUserData(uid);
+        } else {
+            Toast.makeText(getContext(), "Lỗi rồi", Toast.LENGTH_SHORT).show();
+        }
 
         ArrayList<Menu> listMenu = new ArrayList<>();
         listMenu.add(new Menu("My Goals", R.drawable.dart));
@@ -116,19 +145,65 @@ public class FragmentMenu extends Fragment {
             }
             // Add other menu item clicks here if needed
         });
-
-        // Xử lý sự kiện Logout
-        buttonLogout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(getActivity(), "Đã đăng xuất", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            getActivity().finish(); // Đóng MainActivity
+        buttonViewProfile.setOnClickListener(v -> {
+            if (uid != null) {
+                loadUserDataForEdit(uid); // Truy vấn dữ liệu từ Firestore trước khi chuyển
+            } else {
+                Toast.makeText(getContext(), "Không thể tải thông tin người dùng", Toast.LENGTH_SHORT).show();
+            }
         });
-
         return view;
+    }
 
+    private void loadUserData(String uid) {
+        db.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String name = documentSnapshot.getString("name");
+                        String email = documentSnapshot.getString("email");
+                        String avatarUrl = documentSnapshot.getString("link_avatar");
+
+                        if (name != null) textTen.setText(name);
+                        if (email != null) textLink.setText(email);
+
+                        if (avatarUrl != null) {
+                            Glide.with(this)
+                                    .load(avatarUrl)
+                                    .placeholder(R.drawable.pho)
+                                    .error(R.drawable.pho)
+                                    .into(imageHinh);
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Không tìm thấy dữ liệu người dùng", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void loadUserDataForEdit(String uid) {
+        db.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String name = documentSnapshot.getString("name");
+                        String email = documentSnapshot.getString("email");
+                        String avatarUrl = documentSnapshot.getString("link_avatar"); // Nếu cần chỉnh sửa avatar
+
+                        Intent intent = new Intent(getActivity(), HoSoActivity.class);
+                        intent.putExtra("name", name);
+                        intent.putExtra("email", email);
+                        intent.putExtra("avatarUrl", avatarUrl); // Truyền thêm nếu cần
+                        intent.putExtra("userUid", uid); // Truyền UID để cập nhật sau
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getContext(), "Không tìm thấy dữ liệu người dùng", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }
