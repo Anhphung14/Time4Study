@@ -57,6 +57,12 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging")  // Firebase Cloud Messaging
 
     implementation("com.google.firebase:firebase-storage:20.3.0")
+
+    // Thêm Glide dependency
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
+    implementation("com.cloudinary:cloudinary-android:2.3.1")
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin

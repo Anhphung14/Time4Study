@@ -3,4 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692f7</color>
+    <!-- <color name="colorPrimary">#2357ED</color> -->
+    <color name="colorPrimary">#52B6DF</color>
+    <color name="colorPrimaryDark">#0F5CD0</color>
+    <color name="colorAccent">#5594CF</color>
+
+    <!-- Light theme -->
+    <color name="buttonPrimary">#52B6DF</color>
+    <color name="textColor">@color/black</color>
+    <color name="backgroundColor">@color/white</color>
+    <color name="cardBorderColor">#339AC7</color>
+
 </resources>
