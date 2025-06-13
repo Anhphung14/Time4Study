@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/profileLayout">
+    android:id="@+id/profileLayout"
+    android:background="?android:attr/colorBackground">
 
     <ImageView
         android:id="@+id/imageHinh"
@@ -13,7 +14,7 @@
         android:scaleType="centerCrop"
         android:background="@drawable/circle_background"
         android:clipToOutline="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/pho" />
 
     <TextView
@@ -21,19 +22,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageHinh"
-        android:layout_toRightOf="@+id/imageHinh"
-        android:textSize="14dp"
+        android:layout_toEndOf="@+id/imageHinh"
+        android:textSize="14sp"
         android:text="trntd"
-        android:textColor="#E91E63"
-        />
+        android:textColor="?attr/colorPrimary" />
 
     <TextView
         android:id="@+id/textLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textTen"
-        android:layout_toRightOf="@+id/imageHinh"
-        android:textSize="12dp"
+        android:layout_toEndOf="@+id/imageHinh"
+        android:textSize="12sp"
         android:text="bourbon1023@gmail.com"
-        android:textColor="#3F51B5"/>
+        android:textColor="?android:attr/textColorSecondary" />
+
 </RelativeLayout>

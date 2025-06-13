@@ -12,10 +12,16 @@ import com.example.time4study.R;
 
 /**
  * A simple {@link Fragment} subclass.
+<<<<<<<< HEAD:app/src/main/java/com/example/fragments/PlaceholderFragment.java
  * Use the {@link PlaceholderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class PlaceholderFragment extends Fragment {
+========
+ * Use the {@link FragmentChatAI#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class FragmentChatAI extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +33,7 @@ public class PlaceholderFragment extends Fragment {
     private String mParam2;
 
     public PlaceholderFragment() {
+    public FragmentChatAI() {
         // Required empty public constructor
     }
 
@@ -36,11 +43,17 @@ public class PlaceholderFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
+<<<<<<<< HEAD:app/src/main/java/com/example/fragments/PlaceholderFragment.java
      * @return A new instance of fragment PlaceholderFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static PlaceholderFragment newInstance(String param1, String param2) {
         PlaceholderFragment fragment = new PlaceholderFragment();
+//     * @return A new instance of fragment FragmentChatAI.
+//     */
+    // TODO: Rename and change types and number of parameters
+    public static FragmentChatAI newInstance(String param1, String param2) {
+        FragmentChatAI fragment = new FragmentChatAI();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,5 +75,6 @@ public class PlaceholderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_placeholder, container, false);
+        return inflater.inflate(R.layout.fragment_chat_a_i, container, false);
     }
 }

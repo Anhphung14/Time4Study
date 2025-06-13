@@ -1,51 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/focusTimeMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".FragmentTargetMode">
-    <RelativeLayout
+    tools:context="com.example.fragments.FragmentFocusMode">
+
+    <!-- SETTINGS BUTTON -->
+    <ImageView
+        android:id="@+id/settings_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/settings"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp" />
+
+    <!-- MUSIC BUTTON -->
+    <ImageView
+        android:id="@+id/music_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/music_black"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp" />
+
+    <!-- MUSIC ANIMATED BUTTON -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:lottie_rawRes="@raw/music_anim"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        android:id="@+id/music_animated_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp" />
+
+    <!-- CONTAINER -->
+
+    <!-- SESSIONS COUNT TXT -->
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="15dp"
-        android:background="#AE82FF"
-        >
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:text="FLIP"
-            android:textSize="30sp"
-            android:textStyle="bold"/>
-
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
-            android:layout_marginRight="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@id/imageButton2"
-            android:background="@drawable/question"
-            android:backgroundTint="@color/white"/>
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-
-            android:background="@drawable/icon_setting"
-            android:backgroundTint="@color/white"/>
-
-    </RelativeLayout>
+        android:layout_height="match_parent" />
 
 
+    <TextView
+        android:id="@+id/sessions_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="1 / 4" />
 
-</LinearLayout>
+</RelativeLayout>

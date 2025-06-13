@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="lavender">#8692f7</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692f7</color>
@@ -17,4 +19,39 @@
     <color name="color11">#EF5350</color>
     <color name="color12">#FF8A65</color>
     <color name="color13">#42A5F5</color>
+    <!-- <color name="colorPrimary">#2357ED</color> -->
+    <color name="colorPrimary">#52B6DF</color>
+    <color name="colorPrimaryDark">#0F5CD0</color>
+    <color name="colorAccent">#5594CF</color>
+
+    <!-- Light theme -->
+    <color name="buttonPrimary">#52B6DF</color>
+    <color name="textColor">@color/black</color>
+    <color name="backgroundColor">@color/white</color>
+    <color name="cardBorderColor">#339AC7</color>
+
+    <color name="offwhite">#F2EAE4</color>
+
+    <color name="red_nothing">#d71923</color>
+    <color name="green_nothing">#27C300</color>
+    <color name="blue_nothing">#2DA8F8</color>
+
+    <color name="light_red">#fff2f2</color>
+    <color name="medium_red">#ff7c7c</color>
+    <color name="deep_red">#471515</color>
+    <color name="deep_red_alt">#241515</color>
+    <color name="alt_light_red">#FFBBBB</color>
+
+    <color name="light_green">#f2fff5</color>
+    <color name="medium_green">#8ce8a1</color>
+    <color name="deep_green">#14401d</color>
+
+    <color name="light_blue">#d9eeff</color>
+    <color name="medium_blue">#8bcaff</color>
+    <color name="deep_blue">#153047</color>
+
+    <color name="dark_background">#1B1B1D</color>
+    <color name="dark_card_background">#414247</color>
+
+    <color name="slider_light">#FFCFCF</color>
 </resources>
