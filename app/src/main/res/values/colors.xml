@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="lavender">#8692f7</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-<<<<<<< Updated upstream
+
     <color name="lavender">#8692f7</color>
     <!-- <color name="colorPrimary">#2357ED</color> -->
     <color name="colorPrimary">#52B6DF</color>
@@ -17,7 +17,6 @@
     <color name="backgroundColor">@color/white</color>
     <color name="cardBorderColor">#339AC7</color>
 
-=======
     <color name="offwhite">#F2EAE4</color>
 
     <color name="red_nothing">#d71923</color>
@@ -42,5 +41,17 @@
     <color name="dark_card_background">#414247</color>
 
     <color name="slider_light">#FFCFCF</color>
->>>>>>> Stashed changes
+    <color name="accent">#52B6DF</color>
+    <color name="primary">#52B6DF</color>
+
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="background">#FFFFFF</color>
+    <color name="textPrimary">#222222</color>
+    <color name="card">#F5F5F5</color>
+    <color name="completed">#388E3C</color>
+    <color name="notCompleted">#D32F2F</color>
+    <color name="divider">#E0E0E0</color>
 </resources>

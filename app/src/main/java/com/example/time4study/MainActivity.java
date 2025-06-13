@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
-<<<<<<< Updated upstream
-=======
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -103,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
->>>>>>> Stashed changes
         bottomNavigationView.setItemIconTintList(null);
 
         // Load tên người dùng

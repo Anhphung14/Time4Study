@@ -23,10 +23,9 @@
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
-<<<<<<< Updated upstream
             android:name=".HoSoActivity"
             android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
-=======
+        <activity
             android:name=".AcFocusMode.FocusTimeSettingsActivity"
             android:exported="false" />
         <activity
@@ -37,7 +36,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
->>>>>>> Stashed changes
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -61,6 +60,18 @@
             android:exported="false" /> <!-- Chỉnh sửa ghi chú -->
         <activity
             android:name=".EditNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.AddGoalActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.MyGoalsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.AISupportActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.ChatHistoryActivity"
             android:exported="false" />
     </application>
 

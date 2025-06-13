@@ -56,7 +56,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")  // Firebase Firestore
     implementation("com.google.firebase:firebase-database")   // Firebase Realtime Database
     implementation("com.google.firebase:firebase-messaging")  // Firebase Cloud Messaging
-<<<<<<< Updated upstream
 
     implementation("com.google.firebase:firebase-storage:20.3.0")
 
@@ -65,11 +64,31 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation("com.cloudinary:cloudinary-android:2.3.1")
-=======
+
     implementation("com.airbnb.android:lottie:6.6.0")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
->>>>>>> Stashed changes
+
+    // Android UI
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-firestore:24.10.2")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
+
+    // Gemini AI & Markdown
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.0")
+    implementation("io.noties.markwon:core:4.6.2")
+
+
+    // Kiểm thử
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin

@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.GridViewMenuAdapter;
 import com.example.Menu;
+import com.example.activities.AISupportActivity;
+import com.example.activities.MyGoalsActivity;
 import com.example.time4study.HoSoActivity;
 import com.example.time4study.LoginActivity;
 import com.example.time4study.NotesActivity;
@@ -133,6 +135,8 @@ public class FragmentMenu extends Fragment {
         listMenu.add(new Menu("Global Ranking", R.drawable.global_ranking));
         listMenu.add(new Menu("Friend Ranking", R.drawable.friend_ranking));
         listMenu.add(new Menu("Study Log", R.drawable.study_log));
+        listMenu.add(new Menu("AI Support", R.drawable.ai_assistant));
+
 
         GridViewMenuAdapter adapter = new GridViewMenuAdapter(getActivity(), R.layout.custom_gridview, listMenu);
         gridView.setAdapter(adapter);
@@ -141,6 +145,13 @@ public class FragmentMenu extends Fragment {
             Menu selectedMenu = listMenu.get(position);
             if (selectedMenu.getTitle().equals("Notes")) {
                 Intent intent = new Intent(getActivity(), NotesActivity.class);
+                startActivity(intent);
+            }
+            if (selectedMenu.getTitle().equals("My Goals")) {
+                Intent intent = new Intent(getActivity(), MyGoalsActivity.class);
+                startActivity(intent);
+            } else if (selectedMenu.getTitle().equals("AI Support")) {
+                Intent intent = new Intent(getActivity(), AISupportActivity.class);
                 startActivity(intent);
             }
             // Add other menu item clicks here if needed
