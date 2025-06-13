@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+   /* id("com.android.application")*/
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,6 +43,11 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation ("com.google.android.gms:play-services-auth:21.0.0")
+    implementation ("com.google.android.gms:play-services-base:18.5.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    /*kapt("com.github.bumptech.glide:compiler:4.16.0")*/
+
     // Firebase BOM (Bill of Materials)
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -48,6 +55,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")  // Firebase Firestore
     implementation("com.google.firebase:firebase-database")   // Firebase Realtime Database
     implementation("com.google.firebase:firebase-messaging")  // Firebase Cloud Messaging
+
+    implementation("com.google.firebase:firebase-storage:20.3.0")
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin

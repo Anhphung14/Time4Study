@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Quyền ứng dụng -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -14,23 +18,46 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Time4Study"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <!-- Firebase Default Notification Channel -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
 
+        <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Màn hình đăng ký -->
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+
+        <!-- Màn hình quên mật khẩu -->
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+
+        <!-- Màn hình chính -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <!-- Ghi chú -->
+        <activity
+            android:name=".NotesActivity"
+            android:exported="false" />
+
+        <!-- Chỉnh sửa ghi chú -->
+        <activity
+            android:name=".EditNoteActivity"
+            android:exported="false" />
+
+       
+
+
+
     </application>
 
 </manifest>
