@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/title_new_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Color"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <GridLayout
+        android:id="@+id/gridlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:columnCount="6">
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color1"
+                android:clickable="false"
+                android:focusable="false"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color2"
+                android:clickable="false"
+                android:focusable="false"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color3"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color4"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color5"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color6"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color7"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color8"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color9"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color10"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color11"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/custom_circle_color_calendar"
+                android:backgroundTint="@color/color12"
+                android:clickable="false"
+                android:focusable="false"
+                />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"/>
+        </FrameLayout>
+    </GridLayout>
+
+
+</LinearLayout>

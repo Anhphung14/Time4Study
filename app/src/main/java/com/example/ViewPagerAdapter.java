@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.fragments.FragmentFocusMode;
+import com.example.fragments.FragmentMenu;
+import com.example.fragments.PlaceholderFragment;
+
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
+    private boolean showMenuFragment = false;
     public ViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
@@ -17,11 +23,34 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return new FragmentMenu();
+        if (position == 0 && !showMenuFragment) {
+            return new PlaceholderFragment();
+        }
+
+        switch (position) {
+            case 0:
+                return new FragmentMenu();
+            case 1:
+                return new FragmentFocusMode();
+        }
+
+        return null;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        // Buộc ViewPager làm mới Fragment khi notifyDataSetChanged được gọi
+        return POSITION_NONE;
+    }
+
+    public void setShowMenuFragment() {
+        showMenuFragment = true;
+        notifyDataSetChanged();
+    }
+
 }

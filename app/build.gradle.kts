@@ -48,6 +48,21 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")  // Firebase Firestore
     implementation("com.google.firebase:firebase-database")   // Firebase Realtime Database
     implementation("com.google.firebase:firebase-messaging")  // Firebase Cloud Messaging
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.8.7")
+
+    // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // https://mvnrepository.com/artifact/pl.droidsonroids.gif/android-gif-drawable
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.27")
+
+    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
+    implementation("com.getbase:floatingactionbutton:1.10.1")
+    implementation ("com.wdullaer:materialdatetimepicker:4.2.3")
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin

@@ -5,7 +5,7 @@
         android:title="Home"
         android:icon="@drawable/home"/>
     <item
-        android:id="@+id/target_mode"
+        android:id="@+id/focus_mode"
         android:title="Focus Mode"
         android:icon="@drawable/clock"/>
     <item
