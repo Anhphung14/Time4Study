@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,8 +23,21 @@
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
+<<<<<<< Updated upstream
             android:name=".HoSoActivity"
             android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
+=======
+            android:name=".AcFocusMode.FocusTimeSettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AcFocusMode.FocusTimeStatsActivity"
+            android:exported="false" />
+        <!-- Firebase Default Notification Channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+>>>>>>> Stashed changes
         <activity
             android:name=".LoginActivity"
             android:exported="true">

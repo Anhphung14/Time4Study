@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.crashlytics.buildtools)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -55,6 +56,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")  // Firebase Firestore
     implementation("com.google.firebase:firebase-database")   // Firebase Realtime Database
     implementation("com.google.firebase:firebase-messaging")  // Firebase Cloud Messaging
+<<<<<<< Updated upstream
 
     implementation("com.google.firebase:firebase-storage:20.3.0")
 
@@ -63,6 +65,11 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation("com.cloudinary:cloudinary-android:2.3.1")
+=======
+    implementation("com.airbnb.android:lottie:6.6.0")
+    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+>>>>>>> Stashed changes
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin

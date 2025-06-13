@@ -62,6 +62,48 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+<<<<<<< Updated upstream
+=======
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
+                        break;
+                    case 1:
+                        bottomNavigationView.getMenu().findItem(R.id.target_mode).setChecked(true);
+                        break;
+                    case 2:
+                        bottomNavigationView.getMenu().findItem(R.id.statistics).setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                viewPager.setCurrentItem(0);
+                return true;
+            } else if (itemId == R.id.target_mode) {
+                viewPager.setCurrentItem(1);
+                return true;
+            } else if (itemId == R.id.statistics) {
+                viewPager.setCurrentItem(2);
+                return true;
+            }
+            return false;
+        });
+
+>>>>>>> Stashed changes
         bottomNavigationView.setItemIconTintList(null);
 
         // Load tên người dùng

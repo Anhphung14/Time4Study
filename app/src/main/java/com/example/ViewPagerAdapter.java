@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+<<<<<<< Updated upstream
+=======
+import com.example.fragments.FragmentChatAI;
+import com.example.fragments.FragmentFocusMode;
+>>>>>>> Stashed changes
 import com.example.fragments.FragmentMenu;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -19,11 +24,19 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return new FragmentMenu();
+        switch (position) {
+            case 0:
+                return new FragmentMenu();
+            case 1:
+                return new FragmentFocusMode();
+            case 2:
+                return new FragmentChatAI();
+        }
+        return null;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 3;
     }
 }
