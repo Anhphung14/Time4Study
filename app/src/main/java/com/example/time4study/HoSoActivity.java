@@ -31,6 +31,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.utils.FocusTimeStatsManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -41,13 +42,15 @@ import com.google.firebase.auth.FirebaseUser;
 public class HoSoActivity extends AppCompatActivity {
     private static final int REQUEST_EDIT_PROFILE = 1;
     private SharedPreferences userPrefs;
-    private TextView tvUsername, tvEmail;
+    private TextView tvUsername, tvEmail, streakNamOHoSo;
     private Button btnChangeInfor, btnLogout;
     private ImageButton btnBack;
     private ImageView imgAvatar;
     private Switch switchDarkMode;
     private LinearLayout btnChangePasswordCard;
     private FirebaseAuth mAuth;
+
+    private FocusTimeStatsManager focusTimeStatsManager;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -75,6 +78,11 @@ public class HoSoActivity extends AppCompatActivity {
         switchDarkMode = findViewById(R.id.switchDarkMode);
         btnChangePasswordCard = findViewById(R.id.btnChangePasswordCard);
         btnBack = findViewById(R.id.btnBack);
+        streakNamOHoSo = findViewById(R.id.streakNamOHoSo);
+
+        focusTimeStatsManager = new FocusTimeStatsManager(this);
+        FocusTimeStatsManager.Stats stats = focusTimeStatsManager.loadStats();
+        streakNamOHoSo.setText(String.valueOf(stats.currentStreak));
 
         loadUserData();
 
