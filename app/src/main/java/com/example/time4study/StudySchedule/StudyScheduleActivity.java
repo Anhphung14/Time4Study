@@ -70,11 +70,8 @@ public class StudyScheduleActivity extends AppCompatActivity {
     private FloatingActionButton fab_add_new_task, fab_add_new_event;
 
     // ANOTHER
-    private float dY;
-    private float initialY;
-    private Drawable originalBackground;
-    private boolean isDraggingAllowed = false;
-    private final long DELAY_MILLIS = 500;
+    FirebaseUser currentUser;
+    private String uid;
     private HashMap<String, Integer> dynamicIdMap = new HashMap<>();
     private Calendar calendar;
     private GestureDetector gestureDetector;
@@ -101,7 +98,6 @@ public class StudyScheduleActivity extends AppCompatActivity {
         updateCalendar();
         updateEvent();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +191,9 @@ public class StudyScheduleActivity extends AppCompatActivity {
         //Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        uid = currentUser.getUid();
     }
 
     public void addTasks(LinearLayout linearLayout_task, int taskId, String taskName) {
@@ -276,7 +275,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
         ArrayList<String> listTask = new ArrayList<>();
 
         db.collection("tasks")
-                .whereEqualTo("uid", "DWbD8vyeaZgcyST9VpisMGSrcZ62")
+                .whereEqualTo("uid", uid)
                 .whereGreaterThanOrEqualTo("date", start.getTime())
                 .whereLessThanOrEqualTo("date", end.getTime())
                 .get()
@@ -315,7 +314,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
 
         db.collection("calendars")
-                .whereEqualTo("uid", "DWbD8vyeaZgcyST9VpisMGSrcZ62")
+                .whereEqualTo("uid", uid)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -437,7 +436,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
                     }
                     newCalendar.put("color", colorCode[0]);
                     newCalendar.put("title", title.getText().toString());
-                    newCalendar.put("uid", "DWbD8vyeaZgcyST9VpisMGSrcZ62");
+                    newCalendar.put("uid", uid);
 
                     db.collection("calendars")
                             .add(newCalendar)
@@ -581,7 +580,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
 
         db.collection("events")
-                .whereEqualTo("uid", "DWbD8vyeaZgcyST9VpisMGSrcZ62")
+                .whereEqualTo("uid", uid)
                 .whereGreaterThanOrEqualTo("startTime", start.getTime())
                 .whereLessThanOrEqualTo("endTime", end.getTime())
                 .get()
@@ -666,7 +665,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
         final String[] colorCode = {""};
         db.collection("calendars")
-                .whereEqualTo("uid", "DWbD8vyeaZgcyST9VpisMGSrcZ62")
+                .whereEqualTo("uid", uid)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -716,7 +715,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
         TextView tvEndTime = dialogView.findViewById(R.id.tv_end_time);
         Spinner spinner = dialogView.findViewById(R.id.spinner);
 
-        getAllCalendarTitle("DWbD8vyeaZgcyST9VpisMGSrcZ62", new OnCalendarLoadedListener() {
+        getAllCalendarTitle(uid, new OnCalendarLoadedListener() {
             @Override
             public void onCalendarLoaded(HashMap<String, String> calendarMap) {
                 StudyScheduleActivity.this.calendarMap.clear(); // Xóa dữ liệu cũ
@@ -862,7 +861,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
 //        tvStartTime.setText(oldStartTime);
 //        tvEndTime.setText(oldEndTime);
 
-        getAllCalendarTitle("DWbD8vyeaZgcyST9VpisMGSrcZ62", new OnCalendarLoadedListener() {
+        getAllCalendarTitle(uid, new OnCalendarLoadedListener() {
             @Override
             public void onCalendarLoaded(HashMap<String, String> calendarMap) {
                 StudyScheduleActivity.this.calendarMap.clear(); // Xóa dữ liệu cũ
@@ -994,7 +993,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
         event.put("startTime", startTimestamp);
         event.put("endTime", endTimestamp);
         event.put("calendarId", calendarId);
-        event.put("uid", "DWbD8vyeaZgcyST9VpisMGSrcZ62");
+        event.put("uid", uid);
         db.collection("events")
                 .add(event)
                 .addOnSuccessListener(documentReference -> {
@@ -1120,6 +1119,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
             updateEvent();
         });
 
+        builder.setTitle("Event options");
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
