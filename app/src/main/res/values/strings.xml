@@ -3,4 +3,5 @@
     <string name="default_notification_channel_id">default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="client_id">892248584825-qida7jbcf6kvtp1n79rqe2bnfhm2nlm0.apps.googleusercontent.com</string>
 </resources>

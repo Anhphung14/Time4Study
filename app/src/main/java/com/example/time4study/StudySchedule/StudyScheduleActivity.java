@@ -831,7 +831,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
                         String calendarId = getKeyByValue(calendarMap, calendarItem);
                         Log.d("calendarId", calendarId);
 
-                        addEvent(title, startTimestamp, endTimestamp, calendarId, "DWbD8vyeaZgcyST9VpisMGSrcZ62");
+                        addEvent(title, startTimestamp, endTimestamp, calendarId, uid);
 
                     } catch (ParseException e) {
                         Toast.makeText(this, "Định dạng ngày hoặc giờ không hợp lệ", Toast.LENGTH_SHORT).show();

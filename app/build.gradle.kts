@@ -97,6 +97,11 @@ dependencies {
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.27")
     implementation("com.getbase:floatingactionbutton:1.10.1")
     implementation ("com.wdullaer:materialdatetimepicker:4.2.3")
+
+    // Login with Google
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin
