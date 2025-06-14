@@ -150,11 +150,11 @@ public class FocusTimeSettingsActivity extends AppCompatActivity {
     private void loadSavedSettings() {
         Log.d(TAG, "loadSavedSettings: Loading saved settings from SharedPreferences");
 
-        focusedTimeSlider.setValue(sharedPreferences.getInt("focusedTime", 25));
-        shortBreakSlider.setValue(sharedPreferences.getInt("shortBreak", 5));
-        longBreakSlider.setValue(sharedPreferences.getInt("longBreak", 10));
-        sessionsSlider.setValue(sharedPreferences.getInt("sessions", 4));
-        alarmSlider.setValue(sharedPreferences.getInt("alarmDuration", 3));
+        focusedTimeSlider.setValue(Math.max(1, sharedPreferences.getInt("focusedTime", 25)));
+        shortBreakSlider.setValue(Math.max(1, sharedPreferences.getInt("shortBreak", 5)));
+        longBreakSlider.setValue(Math.max(1, sharedPreferences.getInt("longBreak", 10)));
+        sessionsSlider.setValue(Math.max(1, sharedPreferences.getInt("sessions", 4)));
+        alarmSlider.setValue(Math.max(1, sharedPreferences.getInt("alarmDuration", 3)));
         autoStartSessions.setChecked(sharedPreferences.getBoolean("autoStart", false));
         boolean keepScreenAwake = sharedPreferences.getBoolean("keepScreenAwake", false);
         keepScreenAwakeToggle.setChecked(keepScreenAwake);

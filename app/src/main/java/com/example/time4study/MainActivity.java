@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         // Kiểm tra nếu chưa đăng nhập → chuyển về LoginActivity
         if (currentUser == null) {
             Toast.makeText(this, "Chưa đăng nhập", Toast.LENGTH_SHORT).show();

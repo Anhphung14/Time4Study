@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#EDEDED"
     android:scrollbars="none"
-    tools:context=".FocusTimeSettingsActivity">
+    tools:context="com.example.time4study.AcFocusMode.FocusTimeSettingsActivity">
 
     <RelativeLayout
         android:id="@+id/container"

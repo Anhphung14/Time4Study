@@ -6,6 +6,7 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,6 +21,8 @@ import java.util.List;
 public class FocusTimeStatsManager {
     private SharedPreferences sharedPreferences;
     private Gson gson = new Gson();
+    private FirebaseAuth mAuth;
+    private String currentUid;
 
     public static class Stats {
         public long totalFocusMinutes;
@@ -58,40 +61,40 @@ public class FocusTimeStatsManager {
     }
 
     public FocusTimeStatsManager(Context context) {
-        sharedPreferences = context.getSharedPreferences("PomodoroStats", Context.MODE_PRIVATE);
+        mAuth = FirebaseAuth.getInstance();
+        currentUid = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : "guest";
+        sharedPreferences = context.getSharedPreferences("PomodoroStats_" + currentUid, Context.MODE_PRIVATE);
+    }
+
+    public String getCurrentUid() {
+        return currentUid;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void updateStats(int focusMinutes) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        String currentDate = currentDateTime.toLocalDate().toString();
-        int minuteOfDay = currentDateTime.getHour() * 60 + currentDateTime.getMinute();
+    public void updateStats(int minutes) {
+        String today = LocalDate.now().toString();
+        int minuteOfDay = LocalDateTime.now().getHour() * 60 + LocalDateTime.now().getMinute();
         Stats stats = loadStats();
-        long newTotalFocusMinutes = stats.totalFocusMinutes + focusMinutes;
-        int newCurrentStreak = stats.currentStreak;
-        int newLongestStreak = stats.longestStreak;
-        if (!stats.lastFocusDate.isEmpty()) {
-            LocalDate lastDate = LocalDate.parse(stats.lastFocusDate);
-            long daysBetween = ChronoUnit.DAYS.between(lastDate, LocalDate.now());
-            if (daysBetween == 1L) {
-                newCurrentStreak++;
-            } else if (daysBetween > 1L) {
-                newCurrentStreak = 1;
-            } // daysBetween == 0L thì không thay đổi streak
-        } else {
-            newCurrentStreak = 1;
+        stats.totalFocusMinutes += minutes;
+        if (!stats.lastFocusDate.equals(today)) {
+            if (stats.lastFocusDate.isEmpty() || ChronoUnit.DAYS.between(LocalDate.parse(stats.lastFocusDate), LocalDate.now()) == 1) {
+                stats.currentStreak++;
+                if (stats.currentStreak > stats.longestStreak) {
+                    stats.longestStreak = stats.currentStreak;
+                }
+            } else {
+                stats.currentStreak = 1;
+            }
+            stats.lastFocusDate = today;
         }
-        if (newCurrentStreak > newLongestStreak) {
-            newLongestStreak = newCurrentStreak;
-        }
-        updateMinuteStats(currentDate, minuteOfDay, focusMinutes);
-        updateDailyStats(currentDate, focusMinutes);
         sharedPreferences.edit()
-                .putLong("totalFocusMinutes", newTotalFocusMinutes)
-                .putString("lastFocusDate", currentDate)
-                .putInt("currentStreak", newCurrentStreak)
-                .putInt("longestStreak", newLongestStreak)
+                .putLong("totalFocusMinutes", stats.totalFocusMinutes)
+                .putString("lastFocusDate", stats.lastFocusDate)
+                .putInt("currentStreak", stats.currentStreak)
+                .putInt("longestStreak", stats.longestStreak)
                 .apply();
+        updateMinuteStats(today, minuteOfDay, minutes);
+        updateDailyStats(today, minutes);
     }
 
     private void updateMinuteStats(String date, int minuteOfDay, int minutes) {

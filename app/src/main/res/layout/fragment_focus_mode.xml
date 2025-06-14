@@ -62,6 +62,6 @@
         android:layout_marginBottom="20dp"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:text="1 / 4" />
+        android:text="0 / 4" />
 
 </RelativeLayout>

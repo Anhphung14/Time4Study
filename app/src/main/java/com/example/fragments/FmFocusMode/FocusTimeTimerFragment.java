@@ -40,6 +40,7 @@ import com.example.adapters.FocusTimeTimerPresetAdapter;
 import com.example.models.FocusTimeTimerPreset;
 import com.example.services.FocusTimeTimerService;
 import com.example.utils.FocusTimeStatsManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class FocusTimeTimerFragment extends Fragment {
     private CountDownTimer countDownTimer = null;
     private long timeLeftInMillis = 0;
     private boolean timerRunning = false;
-    private int currentSession = 1;
+    private int currentSession = 0;
     private int totalSessions = 4;
     private boolean autoStart = false;
     private boolean isFromShortBreak = false;
@@ -184,10 +185,18 @@ public class FocusTimeTimerFragment extends Fragment {
                 updateTimerState(false);
                 playAlarm();
                 int focusMinutes = sharedPreferences.getInt("focusedTime", 25);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    focusTimeStatsManager.updateStats(focusMinutes);
+
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                String currentUid = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : "guest";
+                if (currentUid.equals(focusTimeStatsManager.getCurrentUid())) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        focusTimeStatsManager.updateStats(focusMinutes);
+                    }
                 }
-                if (currentSession < totalSessions) {
+
+                if (currentSession <= totalSessions) {
+                    currentSession++;
+                    sharedPreferences.edit().putInt("currentSession", currentSession).apply();
                     loadShortBreakFragment();
                 } else {
                     Toast.makeText(requireContext(), "All sessions completed", Toast.LENGTH_SHORT).show();
@@ -413,6 +422,10 @@ public class FocusTimeTimerFragment extends Fragment {
                     Integer shortBreak = parseInt(shortBreakInput.getText().toString());
                     Integer longBreak = parseInt(longBreakInput.getText().toString());
                     if (!name.isEmpty() && duration != null && shortBreak != null && longBreak != null) {
+                        if (duration < 1 || shortBreak < 1 || longBreak < 1) {
+                            Toast.makeText(requireContext(), "Duration, short break and long break must be at least 1 minute", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         FocusTimeTimerPreset newPreset = new FocusTimeTimerPreset(name, duration, shortBreak, longBreak);
                         savePreset(newPreset);
                         onPresetAdded.run();

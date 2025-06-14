@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
@@ -29,6 +30,8 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.example.utils.FocusTimeStatsManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,6 +45,8 @@ public class FocusTimeStatsActivity extends AppCompatActivity {
     private BarChart todayChart, weekChart;
     private FocusTimeStatsManager focusTimeStatsManager;
     private ImageView backBtn;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,18 @@ public class FocusTimeStatsActivity extends AppCompatActivity {
             }
             return insets;
         });
+
+        mAuth = FirebaseAuth.getInstance();
         focusTimeStatsManager = new FocusTimeStatsManager(this);
+        
+        // Kiểm tra uid trước khi hiển thị thống kê
+        String currentUid = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : "guest";
+        if (!currentUid.equals(focusTimeStatsManager.getCurrentUid())) {
+            Toast.makeText(this, "Please sign in to view your statistics", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         todayCard = findViewById(R.id.today_card);
         weekCard = findViewById(R.id.month_card);
         todayTxt = findViewById(R.id.today_txt);

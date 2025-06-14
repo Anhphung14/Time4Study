@@ -28,6 +28,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.services.FocusTimeTimerService;
 import com.example.time4study.R;
 
 
@@ -126,33 +127,41 @@ public class FocusTimeLongBreakFragment extends Fragment {
     }
 
     private void startTimer() {
+        if (countDownTimer != null) countDownTimer.cancel();
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftInMillis = millisUntilFinished;
                 updateCountdownText();
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("PomodoroSettings", Context.MODE_PRIVATE);
+                sharedPreferences.edit().putLong("timeLeftInMillis", timeLeftInMillis).apply();
             }
             @Override
             public void onFinish() {
                 timerRunning = false;
-                updateBreakState(false);
+                updateTimerState(false);
                 playAlarm();
-                Toast.makeText(requireContext(), "Break completed", Toast.LENGTH_SHORT).show();
-                loadTimerFragment();
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("PomodoroSettings", Context.MODE_PRIVATE);
+                sharedPreferences.edit()
+                    .putInt("currentSession", 0)
+                    .putBoolean("isFromShortBreak", false)
+                    .apply();
+                loadFocusTimeTimerFragment();
             }
         }.start();
         timerRunning = true;
-        updateBreakState(true);
+        updateTimerState(true);
         playBtn.setVisibility(View.GONE);
         pauseBtn.setVisibility(View.VISIBLE);
         resetBtn.setVisibility(View.VISIBLE);
         skipBtn.setVisibility(View.VISIBLE);
+        FocusTimeTimerService.startTimer(requireContext(), "longBreak", null);
     }
 
     private void pauseTimer() {
         if (countDownTimer != null) countDownTimer.cancel();
         timerRunning = false;
-        updateBreakState(false);
+        updateTimerState(false);
         playBtn.setVisibility(View.VISIBLE);
         pauseBtn.setVisibility(View.GONE);
     }
@@ -161,7 +170,7 @@ public class FocusTimeLongBreakFragment extends Fragment {
         if (countDownTimer != null) countDownTimer.cancel();
         loadSettings();
         timerRunning = false;
-        updateBreakState(false);
+        updateTimerState(false);
         updateCountdownText();
         playBtn.setVisibility(View.VISIBLE);
         pauseBtn.setVisibility(View.GONE);
@@ -196,7 +205,7 @@ public class FocusTimeLongBreakFragment extends Fragment {
         }
     }
 
-    private void updateBreakState(boolean isActive) {
+    private void updateTimerState(boolean isActive) {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("PomodoroSettings", Context.MODE_PRIVATE);
         sharedPreferences.edit()
                 .putBoolean("isTimerRunning", false)
@@ -231,6 +240,14 @@ public class FocusTimeLongBreakFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadFocusTimeTimerFragment() {
+        FocusTimeTimerFragment fragment = FocusTimeTimerFragment.newInstance(0, totalSessions, false, false);
+        getParentFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                .replace(R.id.frame_layout, fragment)
+                .commit();
     }
 
     public void setSessionInfo(int currentSession, int totalSessions) {
