@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,18 +39,21 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.time.LocalDate;
 
 public class HoSoActivity extends AppCompatActivity {
     private static final int REQUEST_EDIT_PROFILE = 1;
     private SharedPreferences userPrefs;
-    private TextView tvUsername, tvEmail, streakNamOHoSo;
+    private TextView tvUsername, tvEmail, streakNamOHoSo, goalHoanThanh;
     private Button btnChangeInfor, btnLogout;
     private ImageButton btnBack;
     private ImageView imgAvatar;
     private Switch switchDarkMode;
     private LinearLayout btnChangePasswordCard;
     private FirebaseAuth mAuth;
-
+    private FirebaseFirestore db;
     private FocusTimeStatsManager focusTimeStatsManager;
 
     @SuppressLint("MissingInflatedId")
@@ -70,6 +74,7 @@ public class HoSoActivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         imgAvatar = findViewById(R.id.imgAvatar);
         tvUsername = findViewById(R.id.tvUsername);
         tvEmail = findViewById(R.id.tvEmail);
@@ -79,6 +84,7 @@ public class HoSoActivity extends AppCompatActivity {
         btnChangePasswordCard = findViewById(R.id.btnChangePasswordCard);
         btnBack = findViewById(R.id.btnBack);
         streakNamOHoSo = findViewById(R.id.streakNamOHoSo);
+        goalHoanThanh = findViewById(R.id.goalHoanThanh);
 
         focusTimeStatsManager = new FocusTimeStatsManager(this);
         FocusTimeStatsManager.Stats stats = focusTimeStatsManager.loadStats();
@@ -305,6 +311,35 @@ public class HoSoActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Hủy", null)
                 .show();
+    }
+
+    private void calculateCompletedGoals() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) return;
+
+        String uid = currentUser.getUid();
+        LocalDate currentDate = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            currentDate = LocalDate.now();
+        }
+        LocalDate sevenDaysAgo = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            sevenDaysAgo = currentDate.minusDays(7);
+        }
+
+        db.collection("studyGoals")
+                .whereEqualTo("uid", uid)
+                .whereGreaterThanOrEqualTo("endDate", sevenDaysAgo.toString())
+                .whereLessThanOrEqualTo("endDate", currentDate.toString())
+                .whereEqualTo("progress", "100%")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    int completedGoals = queryDocumentSnapshots.size();
+                    goalHoanThanh.setText(String.valueOf(completedGoals));
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Lỗi khi tải dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
 }

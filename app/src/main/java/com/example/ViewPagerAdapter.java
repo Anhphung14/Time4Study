@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.fragments.FragmentFocusMode;
 import com.example.fragments.FragmentMenu;
+import com.example.fragments.FragmentStatistics;
 import com.example.fragments.PlaceholderFragment;
 //import com.example.fragments.PlaceholderFragment;
 //import com.example.fragments.FragmentChatAI;
@@ -33,6 +34,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new FragmentMenu();
             case 1:
                 return new FragmentFocusMode();
+            case 2:
+                return new FragmentStatistics();
         }
 
         return null;
@@ -40,7 +43,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override

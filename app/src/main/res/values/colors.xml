@@ -68,4 +68,6 @@
     <color name="completed">#388E3C</color>
     <color name="notCompleted">#D32F2F</color>
     <color name="divider">#E0E0E0</color>
+
+    <color name="primary_blue">#52B6DF</color>
 </resources>
