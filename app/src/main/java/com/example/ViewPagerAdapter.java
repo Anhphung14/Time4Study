@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.fragments.FragmentFocusMode;
 import com.example.fragments.FragmentMenu;
+import com.example.fragments.PlaceholderFragment;
 //import com.example.fragments.PlaceholderFragment;
 //import com.example.fragments.FragmentChatAI;
 
@@ -24,9 +25,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-//        if (position == 0 && !showMenuFragment) {
-//            return new PlaceholderFragment();
-//        }
+        if (position == 0 && !showMenuFragment) {
+            return new PlaceholderFragment();
+        }
         switch (position) {
             case 0:
                 return new FragmentMenu();

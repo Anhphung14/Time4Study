@@ -138,12 +138,17 @@ public class MainActivity extends AppCompatActivity {
                     if (documentSnapshot.exists()) {
                         String name = documentSnapshot.getString("name");
                         Toast.makeText(MainActivity.this, "Welcome back, " + name, Toast.LENGTH_SHORT).show();
+
+                        adapter.setShowMenuFragment();
                     } else {
                         Toast.makeText(MainActivity.this, "Không tìm thấy người dùng", Toast.LENGTH_SHORT).show();
+                        adapter.setShowMenuFragment();
                     }
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(MainActivity.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(MainActivity.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    adapter.setShowMenuFragment();
+                });
     }
 
     // Tạo menu ở góc trên bên phải (gồm nút logout)

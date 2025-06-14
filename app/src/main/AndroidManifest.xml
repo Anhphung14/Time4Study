@@ -27,6 +27,7 @@
             android:exported="false" />
         <activity
             android:name=".HoSoActivity"
+            android:theme="@style/Theme.Time4Study"
             android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
         <activity
             android:name=".AcFocusMode.FocusTimeSettingsActivity"
