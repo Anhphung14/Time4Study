@@ -3,20 +3,20 @@ package com.example.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.GridViewMenuAdapter;
 import com.example.Menu;
+import com.example.MenuAdapter;
 import com.example.time4study.DocumentsActivity;
 import com.example.time4study.R;
 import com.example.time4study.StudySchedule.StudyScheduleActivity;
@@ -48,8 +48,8 @@ public class FragmentMenu extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private TextView textNameUser, textUserEmail;
-    private ImageView avatarImage;
+    private RecyclerView recyclerView;
+    private MenuAdapter menuAdapter;
 
     public FragmentMenu() {
         // Required empty public constructor
@@ -111,16 +111,16 @@ public class FragmentMenu extends Fragment {
 //        return inflater.inflate(R.layout.fragment_menu, container, false);
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        GridView gridView = view.findViewById(R.id.GridViewMenu);
-        // Khởi tạo các thành phần từ custom_user_profile
+        recyclerView = view.findViewById(R.id.GridViewMenu);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
         textTen = view.findViewById(R.id.textTen);
         textLink = view.findViewById(R.id.textLink);
         imageHinh = view.findViewById(R.id.imageHinh);
-        buttonViewProfile= view.findViewById(R.id.buttonViewProfile);
-        // Khởi tạo Firestore
+        buttonViewProfile = view.findViewById(R.id.buttonViewProfile);
+
         db = FirebaseFirestore.getInstance();
 
-        // Lấy UID từ MainActivity
         uid = getActivity().getIntent().getStringExtra("userUid");
         if (uid != null) {
             loadUserData(uid);
@@ -130,49 +130,41 @@ public class FragmentMenu extends Fragment {
 
         ArrayList<Menu> listMenu = new ArrayList<>();
         listMenu.add(new Menu("My Goals", R.drawable.dart));
-        listMenu.add(new Menu("Timeline", R.drawable.timeline));
-        listMenu.add(new Menu("Daily Report", R.drawable.daily_report));
-        listMenu.add(new Menu("Calendar", R.drawable.calendar));
         listMenu.add(new Menu("Notes", R.drawable.note));
         listMenu.add(new Menu("Study Schedule", R.drawable.schedule));
-        listMenu.add(new Menu("Global Ranking", R.drawable.global_ranking));
-        listMenu.add(new Menu("Friend Ranking", R.drawable.friend_ranking));
-        listMenu.add(new Menu("Study Log", R.drawable.study_log));
         listMenu.add(new Menu("AI Support", R.drawable.ai_assistant));
         listMenu.add(new Menu("Documents", R.drawable.folder));
 
-
-        GridViewMenuAdapter adapter = new GridViewMenuAdapter(getActivity(), R.layout.custom_gridview, listMenu);
-        gridView.setAdapter(adapter);
-        // Add click listener for grid items
-        gridView.setOnItemClickListener((parent, view1, position, id) -> {
-            Menu selectedMenu = listMenu.get(position);
-            if (selectedMenu.getTitle().equals("Notes")) {
-                Intent intent = new Intent(getActivity(), NotesActivity.class);
-                startActivity(intent);
-            } else if (selectedMenu.getTitle().equals("Study Schedule")) {
-                Intent intent = new Intent(getActivity(), StudyScheduleActivity.class);
-                startActivity(intent);
+        menuAdapter = new MenuAdapter(listMenu, menu -> {
+            switch (menu.getTitle()) {
+                case "Notes":
+                    startActivity(new Intent(getActivity(), NotesActivity.class));
+                    break;
+                case "Study Schedule":
+                    startActivity(new Intent(getActivity(), StudyScheduleActivity.class));
+                    break;
+                case "My Goals":
+                    startActivity(new Intent(getActivity(), MyGoalsActivity.class));
+                    break;
+                case "AI Support":
+                    startActivity(new Intent(getActivity(), AISupportActivity.class));
+                    break;
+                case "Documents":
+                    startActivity(new Intent(getActivity(), DocumentsActivity.class));
+                    break;
             }
-            if (selectedMenu.getTitle().equals("My Goals")) {
-                Intent intent = new Intent(getActivity(), MyGoalsActivity.class);
-                startActivity(intent);
-            } else if (selectedMenu.getTitle().equals("AI Support")) {
-                Intent intent = new Intent(getActivity(), AISupportActivity.class);
-                startActivity(intent);
-            } else if (selectedMenu.getTitle().equals("Documents")) {
-                Intent intent = new Intent(getActivity(), DocumentsActivity.class);
-                startActivity(intent);
-            }
-            // Add other menu item clicks here if needed
         });
+
+        recyclerView.setAdapter(menuAdapter);
+
         buttonViewProfile.setOnClickListener(v -> {
             if (uid != null) {
-                loadUserDataForEdit(uid); // Truy vấn dữ liệu từ Firestore trước khi chuyển
+                loadUserDataForEdit(uid);
             } else {
                 Toast.makeText(getContext(), "Không thể tải thông tin người dùng", Toast.LENGTH_SHORT).show();
             }
         });
+
         return view;
     }
 
@@ -211,13 +203,13 @@ public class FragmentMenu extends Fragment {
                     if (documentSnapshot.exists()) {
                         String name = documentSnapshot.getString("name");
                         String email = documentSnapshot.getString("email");
-                        String avatarUrl = documentSnapshot.getString("link_avatar"); // Nếu cần chỉnh sửa avatar
+                        String avatarUrl = documentSnapshot.getString("link_avatar");
 
                         Intent intent = new Intent(getActivity(), HoSoActivity.class);
                         intent.putExtra("name", name);
                         intent.putExtra("email", email);
-                        intent.putExtra("avatarUrl", avatarUrl); // Truyền thêm nếu cần
-                        intent.putExtra("userUid", uid); // Truyền UID để cập nhật sau
+                        intent.putExtra("avatarUrl", avatarUrl);
+                        intent.putExtra("userUid", uid);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getContext(), "Không tìm thấy dữ liệu người dùng", Toast.LENGTH_SHORT).show();
