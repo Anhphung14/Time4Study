@@ -27,6 +27,9 @@
             android:exported="false" />
         <activity
             android:name=".HoSoActivity"
+            android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
+        <activity
+            android:name=".AcFocusMode.FocusTimeSettingsActivity"
             android:exported="false" />
         <activity
             android:name=".AcFocusMode.FocusTimeStatsActivity"
@@ -62,6 +65,18 @@
             android:exported="false" /> <!-- Chỉnh sửa ghi chú -->
         <activity
             android:name=".EditNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.AddGoalActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.MyGoalsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.AISupportActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.activities.ChatHistoryActivity"
             android:exported="false" />
     </application>
 

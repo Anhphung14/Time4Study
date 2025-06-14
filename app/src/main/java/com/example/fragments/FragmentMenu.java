@@ -23,6 +23,8 @@ import com.example.Menu;
 import com.example.SharedViewModel;
 import com.example.time4study.R;
 import com.example.time4study.StudySchedule.StudyScheduleActivity;
+import com.example.activities.AISupportActivity;
+import com.example.activities.MyGoalsActivity;
 import com.example.time4study.HoSoActivity;
 import com.example.time4study.LoginActivity;
 import com.example.time4study.NotesActivity;
@@ -142,6 +144,8 @@ public class FragmentMenu extends Fragment {
         listMenu.add(new Menu("Global Ranking", R.drawable.global_ranking));
         listMenu.add(new Menu("Friend Ranking", R.drawable.friend_ranking));
         listMenu.add(new Menu("Study Log", R.drawable.study_log));
+        listMenu.add(new Menu("AI Support", R.drawable.ai_assistant));
+
 
         GridViewMenuAdapter adapter = new GridViewMenuAdapter(getActivity(), R.layout.custom_gridview, listMenu);
         gridView.setAdapter(adapter);
@@ -153,6 +157,13 @@ public class FragmentMenu extends Fragment {
                 startActivity(intent);
             } else if (selectedMenu.getTitle().equals("Study Schedule")) {
                 Intent intent = new Intent(getActivity(), StudyScheduleActivity.class);
+                startActivity(intent);
+            }
+            if (selectedMenu.getTitle().equals("My Goals")) {
+                Intent intent = new Intent(getActivity(), MyGoalsActivity.class);
+                startActivity(intent);
+            } else if (selectedMenu.getTitle().equals("AI Support")) {
+                Intent intent = new Intent(getActivity(), AISupportActivity.class);
                 startActivity(intent);
             }
             // Add other menu item clicks here if needed
