@@ -2,12 +2,10 @@ package com.example.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -15,21 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.GridViewMenuAdapter;
 import com.example.Menu;
-import com.example.SharedViewModel;
+import com.example.time4study.DocumentsActivity;
 import com.example.time4study.R;
 import com.example.time4study.StudySchedule.StudyScheduleActivity;
 import com.example.activities.AISupportActivity;
 import com.example.activities.MyGoalsActivity;
 import com.example.time4study.HoSoActivity;
-import com.example.time4study.LoginActivity;
 import com.example.time4study.NotesActivity;
-import com.example.time4study.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -145,6 +139,7 @@ public class FragmentMenu extends Fragment {
         listMenu.add(new Menu("Friend Ranking", R.drawable.friend_ranking));
         listMenu.add(new Menu("Study Log", R.drawable.study_log));
         listMenu.add(new Menu("AI Support", R.drawable.ai_assistant));
+        listMenu.add(new Menu("Documents", R.drawable.folder));
 
 
         GridViewMenuAdapter adapter = new GridViewMenuAdapter(getActivity(), R.layout.custom_gridview, listMenu);
@@ -164,6 +159,9 @@ public class FragmentMenu extends Fragment {
                 startActivity(intent);
             } else if (selectedMenu.getTitle().equals("AI Support")) {
                 Intent intent = new Intent(getActivity(), AISupportActivity.class);
+                startActivity(intent);
+            } else if (selectedMenu.getTitle().equals("Documents")) {
+                Intent intent = new Intent(getActivity(), DocumentsActivity.class);
                 startActivity(intent);
             }
             // Add other menu item clicks here if needed
