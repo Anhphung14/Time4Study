@@ -1,9 +1,14 @@
 package com.example.time4study.StudySchedule;
 
 import android.app.DatePickerDialog;
+
+import com.example.models.CalendarModel;
+import com.example.models.Event;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -164,6 +169,13 @@ public class StudyScheduleActivity extends AppCompatActivity {
             }
         });
 
+        fab_add_new_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogAddTask();
+            }
+        });
+
         drawerLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -196,7 +208,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
         uid = currentUser.getUid();
     }
 
-    public void addTasks(LinearLayout linearLayout_task, int taskId, String taskName) {
+    public void addTasks(LinearLayout linearLayout_task, String stringTaskId, int taskId, String taskName, boolean status) {
         int paddingStart = (int) (10 * getResources().getDisplayMetrics().density);
         int padding = (int) (2 * getResources().getDisplayMetrics().density);
 
@@ -211,13 +223,68 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
         textView.setId(taskId);
         textView.setLayoutParams(params);
-        textView.setBackgroundResource(R.drawable.custom_background_task);
+
+        if (status) {
+            textView.setBackgroundResource(R.drawable.custom_background_task_done);
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            textView.setBackgroundResource(R.drawable.custom_background_task);
+        }
         textView.setTextColor(getResources().getColor(R.color.white));
         textView.setTypeface(null, Typeface.BOLD);
         textView.setPaddingRelative(paddingStart,padding, padding, padding);
         textView.setText(taskName);
 
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogUpdateStatusTask(stringTaskId, taskName, status);
+            }
+        });
+
         linearLayout_task.addView(textView);
+    }
+
+    public void showDialogUpdateStatusTask(String taskId, String title, boolean status) {
+        new AlertDialog.Builder(this)
+                .setTitle("Modify '" + title + "'")
+                .setPositiveButton("Change status", (dialog, which) -> {
+                    updateStatusTask(taskId, status);
+
+                })
+                .setNegativeButton("Delete", (dialog, which) -> {
+                    deleteTask(taskId);
+                })
+                .show();
+    }
+
+    public void updateStatusTask(String taskId, boolean status) {
+        HashMap<String, Object> task = new HashMap<>();
+        task.put("status", !status);
+
+        db.collection("tasks")
+                .document(taskId)
+                .update(task)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("updateStatusTask", "update thanh cong");
+                    updateTask();
+                })
+                .addOnFailureListener(e -> {
+                    Log.d("updateStatusTask", "update that bai " + e.getMessage());
+                });
+    }
+
+    public void deleteTask(String taskId) {
+        db.collection("tasks")
+                .document(taskId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("deleteTask", "xoa task thanh cong");
+                    updateTask();
+                })
+                .addOnFailureListener(e -> {
+                    Log.d("deleteTask", "xoa task that bai " + e.getMessage());
+                });
     }
 
     public int generateId (String taskIdString) {
@@ -281,16 +348,19 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        int count = 0;
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            String taskId = document.getId();
                             String title = document.getString("title");
                             Date date = document.getDate("date");
+                            boolean status = document.getBoolean("status");
                             listTask.add(title);
-//                            Log.d("Firestore", "Task: title=" + title + ", date=" + date);
-                        }
 
-                        for (int i = 0; i < listTask.size(); i++) {
-                            String stringTaskId = "Task" + (i + 1);
-                            addTasks(linearLayout_task, generateId(stringTaskId), listTask.get(i));
+                            String stringTaskId = "Task" + (count + 1);
+                            addTasks(linearLayout_task, taskId, generateId(stringTaskId), title, status);
+
+                            count++;
+//                            Log.d("Firestore", "Task: title=" + title + ", date=" + date);
                         }
 
                     } else {
@@ -312,70 +382,90 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
         HashMap<String, Integer> hashMapCalendar = new HashMap<>();
 
-
         db.collection("calendars")
                 .whereEqualTo("uid", uid)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.d("Calendar", document.getString("title") + " " + document.getString("color"));
-                            hashMapCalendar.put(document.getString("title"), Color.parseColor(document.getString("color")));
-                            calendarIds.put(document.getString("title"), document.getId());
-                        }
+                            CalendarModel calendar = new CalendarModel();
+//                            Log.d("Calendar", document.getString("title") + " " + document.getString("color"));
+                            calendar.setId(document.getId());
+                            calendar.setTitle(document.getString("title"));
+                            calendar.setColorCode(document.getString("color"));
+                            calendar.setChecked(document.getBoolean("isChecked"));
+                            calendar.setUid(uid);
 
-                        for (Map.Entry<String, Integer> entry : hashMapCalendar.entrySet()) {
-                            MenuItem item = menu.add(R.id.group2, Menu.NONE, Menu.NONE, entry.getKey());
-                            item.setCheckable(true);
-                            item.setActionView(R.layout.menu_item_checkbox); // Layout chứa checkbox và text
+//                            hashMapCalendar.put(calendar.getTitle(), Color.parseColor(calendar.getColorCode()));
+//                            calendarIds.put(calendar.getTitle(), calendar.getId());
 
-                            // Thiết lập màu (custom view)
-                            View customView = item.getActionView();
-                            CheckBox checkBox = customView.findViewById(R.id.checkbox);
+//                            for (Map.Entry<String, Integer> entry : hashMapCalendar.entrySet()) {
+                                MenuItem item = menu.add(R.id.group2, Menu.NONE, Menu.NONE, calendar.getTitle());
+                                item.setCheckable(true);
+                                item.setActionView(R.layout.menu_item_checkbox); // Layout chứa checkbox và text
+
+                                // Thiết lập màu (custom view)
+                                View customView = item.getActionView();
+                                CheckBox checkBox = customView.findViewById(R.id.checkbox);
 //                            TextView textView = customView.findViewById(R.id.title);
 //                            textView.setText(labels.get(i));
-                            checkBox.setButtonTintList(ColorStateList.valueOf(entry.getValue()));
+                                checkBox.setButtonTintList(ColorStateList.valueOf(Color.parseColor(calendar.getColorCode())));
 
-                            ImageButton recycleBin = customView.findViewById(R.id.delete_calendar);
-                            ImageButton editPen = customView.findViewById(R.id.edit_calendar);
-
-                            final Handler handler = new Handler();
-                            final long startTime = System.currentTimeMillis();
-                            final long delay = 500; // 1.5 giây
-
-                            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                                Log.d("Task", ">>>>>>> " + item.getTitle().toString() + " checked: " + isChecked);
-
-                                // Xử lý logic dựa trên tiêu đề và trạng thái checkbox
-                                if (item.getTitle().toString().equals("Task") && isChecked) {
-                                    linearLayout_task.setVisibility(View.VISIBLE);
-                                } else if (item.getTitle().toString().equals("Task") && !isChecked) {
-                                    linearLayout_task.setVisibility(View.GONE);
+                                if (calendar.isChecked()) {
+                                    checkBox.setChecked(true);
+                                } else {
+                                    checkBox.setChecked(false);
                                 }
 
-                                Log.d("task", "<<<<<<<<<<<<<< " + item.getTitle() + ": " + calendarIds.get(item.getTitle()));
-                            });
+                                ImageButton recycleBin = customView.findViewById(R.id.delete_calendar);
+                                ImageButton editPen = customView.findViewById(R.id.edit_calendar);
+
+                                final Handler handler = new Handler();
+                                final long startTime = System.currentTimeMillis();
+                                final long delay = 500; // 1.5 giây
+
+                                checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                                    Log.d("Task", ">>>>>>> " + item.getTitle().toString() + " checked: " + isChecked);
+
+                                    // Xử lý logic dựa trên tiêu đề và trạng thái checkbox
+                                    if (item.getTitle().toString().equals("Task") && isChecked) {
+                                        linearLayout_task.setVisibility(View.VISIBLE);
+                                    } else if (item.getTitle().toString().equals("Task") && !isChecked) {
+                                        linearLayout_task.setVisibility(View.GONE);
+                                    }
+
+                                    updateStatusCheckboxCalendar(calendar);
+                                    updateEventsWhenCheckedCheckbox();
+
+//                                Log.d("task", "<<<<<<<<<<<<<< " + item.getTitle() + ": " + calendarIds.get(item.getTitle()));
+                                });
 
 
-                            // xoa calendar
-                            recycleBin.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Log.d("recycleBin", "da vao day " + item.getTitle().toString() + ": " + calendarIds.get(item.getTitle()));
-                                    deleteCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
-                                }
-                            });
+                                // xoa calendar
+                                recycleBin.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+//                                    Log.d("recycleBin", "da vao day " + item.getTitle().toString() + ": " + calendarIds.get(item.getTitle()));
+//                                        deleteCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
+                                        deleteCalendar(item.getTitle().toString(), calendar.getId());
+                                    }
+                                });
 
 
-                            // sua calendar
-                            editPen.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    Log.d("editpen", "da vao day " + item.getTitle().toString() + ": " + calendarIds.get(item.getTitle()));
-                                    editCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
-                                }
-                            });
+                                // sua calendar
+                                editPen.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+//                                    Log.d("editpen", "da vao day " + item.getTitle().toString() + ": " + calendarIds.get(item.getTitle()));
+                                        editCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
+                                        editCalendar(item.getTitle().toString(), calendar.getId());
+                                    }
+                                });
+//                            }
                         }
+
+
 
                         MenuItem item = menu.add(R.id.group3, Menu.NONE, Menu.NONE, "Add new Calendar");
                         item.setIcon(R.drawable.ic_add_calendar);
@@ -384,6 +474,86 @@ public class StudyScheduleActivity extends AppCompatActivity {
                         Log.d("Calendar", "Loi khi truy van " + task.getException());
                     }
                 });
+    }
+
+    public void updateStatusCheckboxCalendar(CalendarModel calendar) {
+        calendar.setChecked(!calendar.isChecked());
+        HashMap<String, Object> calendarMap = new HashMap<>();
+        calendarMap.put("isChecked", calendar.isChecked());
+
+        db.collection("calendars")
+                .document(calendar.getId())
+                .update(calendarMap)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("updatestatuscheckbox", "update thanh cong " + calendar.getId());
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("updatestatuscheckbox", e.getMessage());
+                });
+    }
+
+    public void updateEventsWhenCheckedCheckbox() {
+        Log.d("listCalendarIdChecked", "da vo day 1");
+        db.collection("calendars")
+                .whereEqualTo("uid", uid)
+                .whereEqualTo("isChecked", true)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("listCalendarIdChecked", "da vo day 2");
+                        List<String> listCalendarIdChecked = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            listCalendarIdChecked.add(document.getId());
+                        }
+
+                        Log.d("listCalendarIdChecked", ">>>>>" +String.valueOf(listCalendarIdChecked.size()));
+                        getAllEventsByCalendarIdChcked(listCalendarIdChecked);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("updateEventsWhenCheckedCheckbox", e.getMessage());
+                });
+    }
+
+    public void getAllEventsByCalendarIdChcked(List<String> listCalendarIdChecked) {
+        List<View> eventRemove = new ArrayList<>();
+
+        for (int i = 0; i < relativeLayout_timeline_table.getChildCount(); i++) {
+            View child = relativeLayout_timeline_table.getChildAt(i);
+            if (child instanceof TextView) {
+                eventRemove.add(child);
+            }
+        }
+
+        for (View view : eventRemove) {
+            relativeLayout_timeline_table.removeView(view);
+        }
+//
+        db.collection("events")
+                .whereEqualTo("uid", uid)
+                .whereIn("calendarId", listCalendarIdChecked)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Event event = new Event();
+
+                            event.setId(document.getId());
+                            event.setCalendarId(document.getString("calendarId"));
+                            event.setTitle(document.getString("title"));
+                            event.setStartTime(document.getTimestamp("startTime"));
+                            event.setEndTime(document.getTimestamp("endTime"));
+
+                            addEventToLayout(event);
+                        }
+                    }
+
+                    Log.d("getAllEventsByCalendarIdChcked", " thanh cong");
+                })
+                .addOnFailureListener(e -> {
+                    Log.d("getAllEventsByCalendarIdChcked", e.getMessage());
+                });
+
     }
 
     public void addCalendar() {
@@ -437,6 +607,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
                     newCalendar.put("color", colorCode[0]);
                     newCalendar.put("title", title.getText().toString());
                     newCalendar.put("uid", uid);
+                    newCalendar.put("isChecked", true);
 
                     db.collection("calendars")
                             .add(newCalendar)
@@ -565,7 +736,6 @@ public class StudyScheduleActivity extends AppCompatActivity {
             relativeLayout_timeline_table.removeView(view);
         }
 
-
         Calendar start = (Calendar) calendar.clone();
         start.set(Calendar.HOUR_OF_DAY, 0);
         start.set(Calendar.MINUTE, 0);
@@ -578,7 +748,6 @@ public class StudyScheduleActivity extends AppCompatActivity {
         end.set(Calendar.SECOND, 59);
         end.set(Calendar.MILLISECOND, 999);
 
-
         db.collection("events")
                 .whereEqualTo("uid", uid)
                 .whereGreaterThanOrEqualTo("startTime", start.getTime())
@@ -586,45 +755,55 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+//                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+//                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String title = document.getString("title");
-                            String calendarId = document.getString("calendarId");
+                            Event event = new Event();
+//                            String eventId = document.getId();
+//                            String title = document.getString("title");
+//                            String calendarId = document.getString("calendarId");
                             Date startTimestamp = document.getDate("startTime");
                             Date endTimestamp = document.getDate("endTime");
-                            String eventId = document.getId();
 
-                            Calendar calStart = Calendar.getInstance();
-                            calStart.setTime(startTimestamp);
-                            calStart.setTime(startTimestamp);
-                            calStart.set(Calendar.SECOND, 0);
-                            calStart.set(Calendar.MILLISECOND, 0);
+                            event.setId(document.getId());
+                            event.setTitle(document.getString("title"));
+                            event.setStartTime(new Timestamp(startTimestamp));
+                            event.setEndTime(new Timestamp(endTimestamp));
+                            event.setCalendarId(document.getString("calendarId"));
+                            event.setUid(uid);
 
-                            Calendar calEnd = Calendar.getInstance();
-                            calEnd.setTime(endTimestamp);
-                            calEnd.set(Calendar.SECOND, 0);
-                            calEnd.set(Calendar.MILLISECOND, 0);
+                            Log.d("eventColor", event.getCalendarId());
 
-                            // 👉 Tính giờ bắt đầu và kết thúc dạng số thực
-                            int startHour = calStart.get(Calendar.HOUR_OF_DAY);
-                            int startMinute = calStart.get(Calendar.MINUTE);
-                            double startDecimal = startHour + (startMinute / 60.0);
+//                            Calendar calStart = Calendar.getInstance();
+//                            calStart.setTime(startTimestamp);
+//                            calStart.setTime(startTimestamp);
+//                            calStart.set(Calendar.SECOND, 0);
+//                            calStart.set(Calendar.MILLISECOND, 0);
+//
+//                            Calendar calEnd = Calendar.getInstance();
+//                            calEnd.setTime(endTimestamp);
+//                            calEnd.set(Calendar.SECOND, 0);
+//                            calEnd.set(Calendar.MILLISECOND, 0);
+//
+//                            // 👉 Tính giờ bắt đầu và kết thúc dạng số thực
+//                            int startHour = calStart.get(Calendar.HOUR_OF_DAY);
+//                            int startMinute = calStart.get(Calendar.MINUTE);
+//                            double startDecimal = startHour + (startMinute / 60.0);
+//
+//                            int endHour = calEnd.get(Calendar.HOUR_OF_DAY);
+//                            int endMinute = calEnd.get(Calendar.MINUTE);
+//                            double endDecimal = endHour + (endMinute / 60.0);
+//
+//                            // 👉 Tính chênh lệch thời gian
+//                            long diffMillis = calEnd.getTimeInMillis() - calStart.getTimeInMillis();
+//                            long diffMinutes = diffMillis / (60 * 1000);
+//                            double diffHours = diffMinutes / 60.0;
 
-                            int endHour = calEnd.get(Calendar.HOUR_OF_DAY);
-                            int endMinute = calEnd.get(Calendar.MINUTE);
-                            double endDecimal = endHour + (endMinute / 60.0);
+//                            Log.d("event",  + " | " + title + " | Start: " + startDecimal + " | End: " + endDecimal +
+//                                    " | Duration: " + diffMinutes + " phút = " + diffHours + " giờ");
 
-                            // 👉 Tính chênh lệch thời gian
-                            long diffMillis = calEnd.getTimeInMillis() - calStart.getTimeInMillis();
-                            long diffMinutes = diffMillis / (60 * 1000);
-                            double diffHours = diffMinutes / 60.0;
-
-                            Log.d("event", calendarId + " | " + title + " | Start: " + startDecimal + " | End: " + endDecimal +
-                                    " | Duration: " + diffMinutes + " phút = " + diffHours + " giờ");
-
-                            addEventToLayout(eventId, title, calendarId, startDecimal, endDecimal, diffHours);
+                            addEventToLayout(event);
 
                         }
                     }
@@ -634,11 +813,44 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 });
     }
 
-    public void addEventToLayout(String eventId, String title, String calendarId, double startTime, double endTime, double duration) {
-        Log.d("duration", title + " " + String.valueOf(duration));
+    public void addEventToLayout(Event event) {
+
+        Date startTimestamp = event.getStartTime().toDate();
+        Date endTimestamp = event.getEndTime().toDate();
+
+        Calendar calStart = Calendar.getInstance();
+        calStart.setTime(startTimestamp);
+        calStart.setTime(startTimestamp);
+        calStart.set(Calendar.SECOND, 0);
+        calStart.set(Calendar.MILLISECOND, 0);
+
+        Calendar calEnd = Calendar.getInstance();
+        calEnd.setTime(endTimestamp);
+        calEnd.set(Calendar.SECOND, 0);
+        calEnd.set(Calendar.MILLISECOND, 0);
+
+        // 👉 Tính giờ bắt đầu và kết thúc dạng số thực
+        int startHour = calStart.get(Calendar.HOUR_OF_DAY);
+        int startMinute = calStart.get(Calendar.MINUTE);
+        double startTime = startHour + (startMinute / 60.0);
+
+        int endHour = calEnd.get(Calendar.HOUR_OF_DAY);
+        int endMinute = calEnd.get(Calendar.MINUTE);
+        double endTime = endHour + (endMinute / 60.0);
+
+        // 👉 Tính chênh lệch thời gian
+        long diffMillis = calEnd.getTimeInMillis() - calStart.getTimeInMillis();
+        long diffMinutes = diffMillis / (60 * 1000);
+        double duration = diffMinutes / 60.0;
+
+
+
+        Log.d("duration", event.getTitle() + " " + String.valueOf(duration));
         if (duration <= 10.0 / 60) {
             duration = 15.0 / 60;
         }
+
+
 
 
         int heightInPx = (int) (duration * 60 * getResources().getDisplayMetrics().density);
@@ -653,15 +865,17 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
         params.setMargins(0, marginTopInPx, marginRightInPx, 0);
 
-        TextView event = new TextView(this);
-        event.setText(title);
+        TextView eventText = new TextView(this);
+
+
+        eventText.setText(event.getTitle());
         if (duration == 15.0 / 60) {
-            event.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            eventText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         }
-        event.setTextColor(getResources().getColor(R.color.white));
-        event.setTypeface(Typeface.DEFAULT_BOLD);
-        event.setBackgroundResource(R.drawable.custom_backgroud_timeline);
-        event.setPadding(paddingLeftInPx, 0, 0, 0);
+        eventText.setTextColor(getResources().getColor(R.color.white));
+        eventText.setTypeface(Typeface.DEFAULT_BOLD);
+        eventText.setBackgroundResource(R.drawable.custom_backgroud_timeline);
+        eventText.setPadding(paddingLeftInPx, 0, 0, 0);
 
         final String[] colorCode = {""};
         db.collection("calendars")
@@ -670,11 +884,13 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            if (document.getId().equals(calendarId)) {
-                                colorCode[0] = document.getString("color");
-                                Log.d("event", "Màu của calendar1: " + colorCode[0]);
+                            if (document.getId().equals(event.getCalendarId())) {
 
-                                event.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colorCode[0])));
+                                colorCode[0] = document.getString("color");
+                                Log.d("eventColor", ">>>>>>>>" + event.getCalendarId() + " " + colorCode[0].toString());
+                                Log.d("event", "760 Màu của calendar1: " + colorCode[0]);
+
+                                eventText.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colorCode[0])));
                                 break;
                             }
                         }
@@ -689,18 +905,18 @@ public class StudyScheduleActivity extends AppCompatActivity {
                     Log.d("❌ Lỗi khi lấy dữ liệu: ", e.getMessage());
                 });
 
-        event.setLayoutParams(params);
+        eventText.setLayoutParams(params);
 
-        event.setOnLongClickListener(new View.OnLongClickListener() {
+        eventText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Log.d("event", "Dang click " + title);
-                showEventOptionDialog(eventId);
+                Log.d("event", "Dang click " + event.getTitle());
+                showEventOptionDialog(event.getId());
                 return false;
             }
         });
 
-        relativeLayout_timeline_table.addView(event);
+        relativeLayout_timeline_table.addView(eventText);
     }
 
     private void showDialogAddEvent() {
@@ -842,6 +1058,80 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 .create();
 
         dialog.show();
+    }
+
+    public void showDialogAddTask() {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_task, null);
+
+        EditText etTitle = dialogView.findViewById(R.id.et_title);
+        TextView tvDate = dialogView.findViewById(R.id.tv_date);
+
+        startCalendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+
+        tvDate.setOnClickListener(v -> {
+            new DatePickerDialog(this,
+                    (view, year, month, dayOfMonth) -> {
+                        calendar.set(year, month, dayOfMonth);
+                        startCalendar.set(year, month, dayOfMonth);
+                        tvDate.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year));
+                    },
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Add new task")
+                .setView(dialogView)
+                .setPositiveButton("Add", (d, which) -> {
+                    String title = etTitle.getText().toString();
+                    String date = tvDate.getText().toString();
+
+                    // Kiểm tra dữ liệu hợp lệ
+                    if (title.isEmpty() || date.isEmpty()) {
+                        Toast.makeText(this, "Vui lòng điền đầy đủ các trường", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Chuyển đổi thành Timestamp
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    try {
+                        Date dateDate = sdf.parse(date);
+                        // Tạo Timestamp cho Firestore
+                        Timestamp dateTimestamp = new Timestamp(dateDate);
+
+                        addTask(uid, title, dateTimestamp);
+                    } catch (ParseException e) {
+                        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                })
+                .setNegativeButton("Cancel", (d, which) -> d.dismiss())
+                .create();
+
+        dialog.show();
+    }
+
+    public void addTask(String uid, String title, Timestamp date) {
+        Map<String, Object> task = new HashMap<>();
+
+        task.put("title", title);
+        task.put("date", date);
+        task.put("status", false);
+        task.put("uid", uid);
+
+
+        db.collection("tasks")
+                .add(task)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(this, "Them task moi thanh cong", Toast.LENGTH_SHORT).show();
+                    updateTask();
+                })
+                .addOnFailureListener(e -> {
+                    Log.d("addTask", "Loi khi them task: " + e.getMessage());
+                });
     }
 
     public void showDialogEditEvent(String eventId, String oldTitle, String oldDate, String oldStartTime, String oldEndTime) {
@@ -1113,15 +1403,16 @@ public class StudyScheduleActivity extends AppCompatActivity {
                     });
         });
 
-        // Xử lý nhấn delete
-        btnDelete.setOnClickListener(v -> {
-            deleteEvent(eventId); // Gọi hàm xóa
-            updateEvent();
-        });
-
         builder.setTitle("Event options");
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
+        // Xử lý nhấn delete
+        btnDelete.setOnClickListener(v -> {
+            deleteEvent(eventId); // Gọi hàm xóa
+            updateEvent();
+            dialog.dismiss();
+        });
+
     }
 }
