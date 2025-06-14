@@ -115,10 +115,6 @@ public class FragmentMenu extends Fragment {
 //        return inflater.inflate(R.layout.fragment_menu, container, false);
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        textNameUser = view.findViewById(R.id.textTen);
-        textUserEmail = view.findViewById(R.id.textEmail);
-        avatarImage = view.findViewById(R.id.avatarImage);
-
         GridView gridView = view.findViewById(R.id.GridViewMenu);
         // Khởi tạo các thành phần từ custom_user_profile
         textTen = view.findViewById(R.id.textTen);
@@ -154,6 +150,9 @@ public class FragmentMenu extends Fragment {
             Menu selectedMenu = listMenu.get(position);
             if (selectedMenu.getTitle().equals("Notes")) {
                 Intent intent = new Intent(getActivity(), NotesActivity.class);
+                startActivity(intent);
+            } else if (selectedMenu.getTitle().equals("Study Schedule")) {
+                Intent intent = new Intent(getActivity(), StudyScheduleActivity.class);
                 startActivity(intent);
             }
             // Add other menu item clicks here if needed

@@ -27,8 +27,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.SharedViewModel;
-import com.example.fragments.FragmentMenu;
 import com.example.ViewPagerAdapter;
+import com.example.fragments.FragmentMenu;
 import com.example.time4study.helper.CloudinaryConfig;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

@@ -57,22 +57,6 @@ dependencies {
     implementation("com.google.firebase:firebase-database")   // Firebase Realtime Database
     implementation("com.google.firebase:firebase-messaging")  // Firebase Cloud Messaging
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
-    implementation("androidx.lifecycle:lifecycle-livedata:2.8.7")
-
-    // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    implementation("androidx.core:core-splashscreen:1.0.1")
-
-    // https://mvnrepository.com/artifact/pl.droidsonroids.gif/android-gif-drawable
-    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.27")
-
-    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
-    implementation("com.getbase:floatingactionbutton:1.10.1")
-    implementation ("com.wdullaer:materialdatetimepicker:4.2.3")
-
-
     implementation("com.google.firebase:firebase-storage:20.3.0")
 
     // Thêm Glide dependency
@@ -80,9 +64,39 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation("com.cloudinary:cloudinary-android:2.3.1")
+
     implementation("com.airbnb.android:lottie:6.6.0")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // Android UI
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-firestore:24.10.2")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
+
+    // Gemini AI & Markdown
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.0")
+    implementation("io.noties.markwon:core:4.6.2")
+
+
+    // Kiểm thử
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // Dui dui
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // https://mvnrepository.com/artifact/pl.droidsonroids.gif/android-gif-drawable
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.27")
+    implementation("com.getbase:floatingactionbutton:1.10.1")
+    implementation ("com.wdullaer:materialdatetimepicker:4.2.3")
 }
 
 apply(plugin = "com.google.gms.google-services")  // Apply the Google services plugin
