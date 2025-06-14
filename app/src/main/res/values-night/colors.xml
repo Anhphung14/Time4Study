@@ -8,4 +8,5 @@
     <color name="backgroundColor">#121212</color>
     <color name="cardBorderColor">#6583E0</color>
     <color name="buttonPrimary">#2196F3</color>
+    <color name="card">#414247</color>
 </resources>
