@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -70,7 +69,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
         else if (fileType.contains("word")) iconResId = R.drawable.ic_word;
         else if (fileType.contains("excel")) iconResId = R.drawable.ic_excel;
         else if (fileType.contains("txt")) iconResId = R.drawable.ic_txt;
-        else if (fileType.contains("image")) iconResId = R.drawable.ic_image;
+        else if (fileType.contains("image")) iconResId = R.drawable.ic_images;
 
         if (isGrid) {
             // Grid: show thumbnail or icon

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,10 +27,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     private Context context;
     private List<studyNotes> notes;
     private OnNoteClickListener listener;
+    private OnNoteActionListener actionListener;
     private SimpleDateFormat dateFormat;
 
     public interface OnNoteClickListener {
         void onNoteClick(studyNotes note);
+    }
+
+    public interface OnNoteActionListener {
+        void onPinClick(studyNotes note);
+        void onColorClick(studyNotes note);
     }
 
     public NotesAdapter(Context context, List<studyNotes> notes, OnNoteClickListener listener) {
@@ -37,6 +44,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         this.notes = notes;
         this.listener = listener;
         this.dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
+    }
+
+    public void setActionListener(OnNoteActionListener actionListener) {
+        this.actionListener = actionListener;
     }
 
     @NonNull
@@ -63,7 +74,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             try {
                 holder.background.setBackgroundColor(Color.parseColor(note.getColor()));
             } catch (IllegalArgumentException e) {
-                holder.background.setBackgroundColor(Color.WHITE); // fallback if color is invalid
+                holder.background.setBackgroundColor(Color.WHITE);
             }
         } else {
             holder.background.setBackgroundColor(Color.WHITE);
@@ -81,12 +92,26 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             holder.image.setVisibility(View.GONE);
         }
 
-        // Show pin indicator if note is pinned
-        holder.pinIndicator.setVisibility(note.isPinned() ? View.VISIBLE : View.GONE);
+        // Set pin button state
+        holder.btnPin.setImageResource(note.isPinned() ? R.drawable.ic_unpin : R.drawable.ic_pin);
+        holder.btnPin.clearColorFilter();
 
+        // Set click listeners
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onNoteClick(note);
+            }
+        });
+
+        holder.btnPin.setOnClickListener(v -> {
+            if (actionListener != null) {
+                actionListener.onPinClick(note);
+            }
+        });
+
+        holder.btnColor.setOnClickListener(v -> {
+            if (actionListener != null) {
+                actionListener.onColorClick(note);
             }
         });
     }
@@ -107,7 +132,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         TextView content;
         ImageView image;
         TextView date;
-        ImageView pinIndicator;
+        ImageButton btnPin;
+        ImageButton btnColor;
 
         NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -116,7 +142,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             content = itemView.findViewById(R.id.note_content);
             image = itemView.findViewById(R.id.note_image);
             date = itemView.findViewById(R.id.note_date);
-            pinIndicator = itemView.findViewById(R.id.pin_indicator);
+            btnPin = itemView.findViewById(R.id.btn_pin);
+            btnColor = itemView.findViewById(R.id.btn_color);
         }
     }
 }

@@ -65,10 +65,11 @@
         <!--            android:exported="false" /> &lt;!&ndash; Ghi chú &ndash;&gt;-->
         <activity
             android:name=".NotesActivity"
-            android:exported="false" /> <!-- Chỉnh sửa ghi chú -->
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name=".EditNoteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name="com.example.activities.AddGoalActivity"
             android:exported="false"
@@ -93,6 +94,7 @@
             android:name="com.example.time4study.FolderDocumentsActivity"
             android:exported="false"
             android:theme="@style/Theme.Time4Study" />
+
 
     </application>
 

@@ -12,9 +12,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/lavender"
+        android:background="@color/white"
         app:navigationIcon="@drawable/ic_close"
-        app:titleTextColor="@color/white"
+        app:titleTextColor="@color/black"
         android:title="Chỉnh sửa ghi chú" />
 
     <!-- Nội dung -->
@@ -28,18 +28,25 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <Spinner
-                android:id="@+id/subject_spinner"
+            <EditText
+                android:id="@+id/note_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"/>
+                android:hint="Chủ đề/Môn học"
+                android:textColorHint="@color/black"
+                android:background="@android:color/transparent"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp" />
 
             <EditText
                 android:id="@+id/note_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tiêu đề"
+                android:textColorHint="@color/black"
                 android:background="@android:color/transparent"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -49,28 +56,62 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nội dung ghi chú"
+                android:textColorHint="@color/black"
                 android:background="@android:color/transparent"
                 android:minHeight="200dp"
                 android:gravity="top"
+                android:textColor="@color/black"
                 android:inputType="textMultiLine"
                 android:maxLines="10" />
 
-            <ImageView
-                android:id="@+id/note_image"
+            <HorizontalScrollView
+                android:id="@+id/images_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/add_image_button"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thêm ảnh"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/lavender"
-                android:textColor="@color/white" />
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/images_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <ImageButton
+                    android:id="@+id/btn_add_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_images"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btn_color"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_color"
+                    app:tint="@color/lavender"/>
+
+                <ImageButton
+                    android:id="@+id/btn_pin"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_pin"
+                    android:scaleType="centerInside"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

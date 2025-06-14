@@ -1,74 +1,86 @@
 package com.example.time4study;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.HorizontalScrollView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.example.time4study.models.studyNotes;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.UUID;
 
 public class EditNoteActivity extends AppCompatActivity {
 
-    private Spinner subjectSpinner;
     private EditText titleEditText;
     private EditText contentEditText;
-    private List<String> subjectList = new ArrayList<>();
-    private ArrayAdapter<String> spinnerAdapter;
+    private EditText subjectEditText;
+    private ImageButton btnAddImage;
+    private ImageButton btnColor;
+    private ImageButton btnPin;
     private String noteId;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private FirebaseStorage storage;
+    private String currentColor;
+    private boolean isPinned;
+    private List<String> imageUrls = new ArrayList<>();
+    private LinearLayout imagesContainer;
+    private HorizontalScrollView imagesScroll;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_note);
 
-        // Firebase init
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
 
-        // Get noteId from intent
         noteId = getIntent().getStringExtra("note_id");
 
-        // Set up Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(noteId == null ? "Tạo ghi chú mới" : "Chỉnh sửa ghi chú");
-            Log.d("EditNoteActivity", "Toolbar set up");
         }
 
-        // Views
-        subjectSpinner = findViewById(R.id.subject_spinner);
         titleEditText = findViewById(R.id.note_title);
         contentEditText = findViewById(R.id.note_content);
+        subjectEditText = findViewById(R.id.note_subject);
+        btnAddImage = findViewById(R.id.btn_add_image);
+        btnColor = findViewById(R.id.btn_color);
+        btnPin = findViewById(R.id.btn_pin);
+        imagesContainer = findViewById(R.id.images_container);
+        imagesScroll = findViewById(R.id.images_scroll);
 
-        // Spinner adapter setup
-        spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, subjectList);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subjectSpinner.setAdapter(spinnerAdapter);
-
-        loadSubjectsFromFirestore();
+        btnAddImage.setOnClickListener(v -> openImagePicker());
+        btnColor.setOnClickListener(v -> showColorPicker());
+        btnPin.setOnClickListener(v -> togglePin());
 
         if (noteId != null) {
             loadNoteData();
@@ -84,10 +96,13 @@ public class EditNoteActivity extends AppCompatActivity {
                         if (note != null) {
                             titleEditText.setText(note.getTitle());
                             contentEditText.setText(note.getContent());
-                            int subjectIndex = subjectList.indexOf(note.getSubject());
-                            if (subjectIndex != -1) {
-                                subjectSpinner.setSelection(subjectIndex);
-                            }
+                            subjectEditText.setText(note.getSubject());
+                            currentColor = note.getColor();
+                            isPinned = note.isPinned();
+                            imageUrls = note.getImages() != null ? new ArrayList<>(note.getImages()) : new ArrayList<>();
+                            updateColorButton();
+                            updatePinButton();
+                            updateImagesView();
                         }
                     }
                 })
@@ -96,64 +111,126 @@ public class EditNoteActivity extends AppCompatActivity {
                 );
     }
 
-    private void loadSubjectsFromFirestore() {
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(Intent.createChooser(intent, "Chọn ảnh"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    uploadImage(imageUri);
+                }
+            } else if (data.getData() != null) {
+                Uri imageUri = data.getData();
+                uploadImage(imageUri);
+            }
+        }
+    }
+
+    private void uploadImage(Uri imageUri) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) return;
-
-        db.collection("studyNotes")
-                .whereEqualTo("uid", currentUser.getUid())
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    Set<String> subjectSet = new HashSet<>();
-                    for (DocumentSnapshot doc : querySnapshot) {
-                        String subject = doc.getString("subject");
-                        if (subject != null && !subject.isEmpty()) {
-                            subjectSet.add(subject);
-                        }
-                    }
-
-                    subjectList.clear();
-                    subjectList.addAll(subjectSet);
-                    spinnerAdapter.notifyDataSetChanged();
-
-                    if (noteId == null) {
-                        String passedSubject = getIntent().getStringExtra("subject_name");
-                        if (passedSubject != null) {
-                            int index = subjectList.indexOf(passedSubject);
-                            if (index != -1) {
-                                subjectSpinner.setSelection(index);
-                            }
-                        }
-                    }
-                })
+        String imageId = UUID.randomUUID().toString();
+        StorageReference imageRef = storage.getReference()
+                .child("note_images")
+                .child(currentUser.getUid())
+                .child(imageId);
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+                            imageUrls.add(uri.toString());
+                            updateImagesView();
+                        }))
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Lỗi tải môn học: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Lỗi tải ảnh lên: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                 );
+    }
+
+    private void updateImagesView() {
+        imagesContainer.removeAllViews();
+        if (imageUrls != null && !imageUrls.isEmpty()) {
+            imagesScroll.setVisibility(HorizontalScrollView.VISIBLE);
+            for (String url : imageUrls) {
+                ImageView imageView = new ImageView(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(300, 300);
+                params.setMargins(8, 0, 8, 0);
+                imageView.setLayoutParams(params);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                Glide.with(this).load(url).into(imageView);
+                imagesContainer.addView(imageView);
+            }
+        } else {
+            imagesScroll.setVisibility(HorizontalScrollView.GONE);
+        }
+    }
+
+    private void showColorPicker() {
+        ColorPickerDialog dialog = new ColorPickerDialog(this, currentColor, color -> {
+            currentColor = color;
+            updateColorButton();
+        });
+        dialog.show();
+    }
+
+    private void updateColorButton() {
+        if (currentColor != null && !currentColor.isEmpty()) {
+            try {
+                btnColor.setColorFilter(Color.parseColor(currentColor));
+            } catch (IllegalArgumentException e) {
+                btnColor.setColorFilter(Color.LTGRAY);
+            }
+        } else {
+            btnColor.setColorFilter(Color.LTGRAY);
+        }
+    }
+
+    private void togglePin() {
+        isPinned = !isPinned;
+        updatePinButton();
+    }
+
+    private void updatePinButton() {
+        btnPin.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        if (isPinned) {
+            btnPin.setImageResource(R.drawable.ic_unpin);
+            btnPin.setColorFilter(null);
+        } else {
+            btnPin.setImageResource(R.drawable.ic_pin);
+            btnPin.setColorFilter(null);
+        }
     }
 
     private void saveNote() {
         String title = titleEditText.getText().toString().trim();
         String content = contentEditText.getText().toString().trim();
-        String subject = subjectSpinner.getSelectedItem().toString();
-
+        String subject = subjectEditText.getText().toString().trim();
         if (title.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập tiêu đề", Toast.LENGTH_SHORT).show();
             return;
         }
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "Vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
             return;
         }
-
         studyNotes note = new studyNotes();
         note.setTitle(title);
         note.setContent(content);
         note.setSubject(subject);
+        note.setColor(currentColor);
+        note.setPinned(isPinned);
         note.setUid(currentUser.getUid());
         note.setCreatedAt(Timestamp.now());
-
+        note.setUpdatedAt(Timestamp.now());
+        note.setImages(imageUrls);
         if (noteId == null) {
             db.collection("studyNotes")
                     .add(note)
@@ -167,7 +244,15 @@ public class EditNoteActivity extends AppCompatActivity {
         } else {
             db.collection("studyNotes")
                     .document(noteId)
-                    .set(note)
+                    .update(
+                            "title", title,
+                            "content", content,
+                            "subject", subject,
+                            "color", currentColor,
+                            "pinned", isPinned,
+                            "updatedAt", Timestamp.now(),
+                            "images", imageUrls
+                    )
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(this, "Đã cập nhật ghi chú", Toast.LENGTH_SHORT).show();
                         finish();
@@ -178,34 +263,38 @@ public class EditNoteActivity extends AppCompatActivity {
         }
     }
 
-    // Inflate menu có nút lưu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_note, menu);
-        Log.d("EditNoteActivity", "Menu inflated");
         return true;
     }
 
-    // Xử lý sự kiện menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("EditNoteActivity", "onOptionsItemSelected called with id: " + item.getItemId());
-
         if (item.getItemId() == android.R.id.home) {
-            Log.d("EditNoteActivity", "Home button clicked");
             finish();
             return true;
         } else if (item.getItemId() == R.id.action_save) {
-            Log.d("EditNoteActivity", "Save button clicked");
             saveNote();
+            return true;
+        } else if (item.getItemId() == R.id.action_delete && noteId != null) {
+            deleteNote();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish(); // Không lưu tự động nữa, tránh lỗi dữ liệu
+    private void deleteNote() {
+        db.collection("studyNotes")
+                .document(noteId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Đã xóa ghi chú", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
+                    finish();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Lỗi xóa ghi chú: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
     }
 }
