@@ -104,6 +104,9 @@ public class HoSoActivity extends AppCompatActivity {
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> toggleTheme(isChecked));
         btnLogout.setOnClickListener(view -> logout());
         btnBack.setOnClickListener(v -> finish());
+
+        calculateCompletedGoals();
+
     }
 
     private void loadUserData() {

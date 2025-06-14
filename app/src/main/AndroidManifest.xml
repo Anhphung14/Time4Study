@@ -24,6 +24,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".EditProfileActivity"
+            android:theme="@style/Theme.Time4Study"
             android:exported="false" />
         <activity
             android:name=".HoSoActivity"
@@ -31,9 +32,11 @@
             android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
         <activity
             android:name=".AcFocusMode.FocusTimeSettingsActivity"
+            android:theme="@style/Theme.Time4Study"
             android:exported="false" />
         <activity
             android:name=".AcFocusMode.FocusTimeStatsActivity"
+            android:theme="@style/Theme.Time4Study"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -56,9 +59,11 @@
         </activity> <!-- Màn hình đăng ký -->
         <activity
             android:name=".RegisterActivity"
+            android:theme="@style/Theme.Time4Study"
             android:exported="false" /> <!-- Màn hình quên mật khẩu -->
         <activity
             android:name=".ForgotPasswordActivity"
+            android:theme="@style/Theme.Time4Study"
             android:exported="false" /> <!-- Màn hình chính -->
         <!--        <activity-->
         <!--            android:name=".MainActivity"-->

@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +25,22 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,7 +113,6 @@ public class FragmentStatistics extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadGoals(); // Load lại danh sách goal
         setupBarChart(); // Load lại chart
     }
 
@@ -120,7 +124,7 @@ public class FragmentStatistics extends Fragment {
         }
         String uid = currentUser.getUid();
 
-        LocalDate currentDate; // 08:05 PM +07 on Saturday, June 14, 2025
+        LocalDate currentDate;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             currentDate = LocalDate.now();
         } else {
@@ -141,32 +145,66 @@ public class FragmentStatistics extends Fragment {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         String title = document.getString("title");
                         String progressStr = document.getString("progress");
-                        String startDateStr = document.getString("startDate");
-                        String endDateStr = document.getString("endDate");
+                        Timestamp startTimestamp = document.getTimestamp("startDate");
+                        Timestamp endTimestamp = document.getTimestamp("endDate");
 
                         // Chuyển đổi chuỗi ngày thành LocalDate
                         LocalDate startDate = null;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            startDate = LocalDate.parse(startDateStr, formatter);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && startTimestamp != null) {
+                            startDate = startTimestamp.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                         }
                         LocalDate endDate = null;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            endDate = LocalDate.parse(endDateStr, formatter);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && endTimestamp != null) {
+                            endDate = endTimestamp.toDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                         }
 
-                        // Lọc các goal chưa hoàn thành (progress < 100%) và ngày hiện tại trong khoảng
-                        if (progressStr != null && startDate != null && endDate != null) {
-                            float progress = Float.parseFloat(progressStr.replace("%", "").replace("(", "").replace(")", ""));
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if (progress < 100 && !currentDate.isBefore(startDate) && !currentDate.isAfter(endDate)) {
-                                    addGoalCard(title, progressStr);
-                                }
-                            }
-                        }
+                        // Gọi phương thức mới để tính và hiển thị tiến độ dựa trên goalTasks
+                        calculateAndDisplayGoalProgress(document.getId(), title, startDate, endDate, currentDate);
                     }
                 })
                 .addOnFailureListener(e -> {
                     // Xử lý lỗi nếu có
+                    Log.e("FragmentStatistics", "Lỗi khi tải studyGoals: ", e);
+                });
+    }
+
+    private void calculateAndDisplayGoalProgress(String goalId, String goalTitle, LocalDate startDate, LocalDate endDate, LocalDate currentDate) {
+        db.collection("studyGoals")
+                .document(goalId)
+                .collection("goalTasks")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    int totalTasks = queryDocumentSnapshots.size();
+                    int uncompletedTasks = 0;
+
+                    for (QueryDocumentSnapshot taskDocument : queryDocumentSnapshots) {
+                        // Kiểm tra cả 'isCompleted' và 'completed'
+                        Boolean isCompleted = taskDocument.getBoolean("isCompleted");
+                        Boolean completed = taskDocument.getBoolean("completed");
+
+                        if ((isCompleted != null && !isCompleted) || (completed != null && !completed)) {
+                            uncompletedTasks++;
+                        }
+                    }
+
+                    // Chỉ hiển thị goal nếu nó có task con và có ít nhất một task chưa hoàn thành
+                    if (totalTasks > 0 && uncompletedTasks > 0) {
+                        // Tính toán phần trăm chưa hoàn thành
+                        String progressDisplay = String.format("Còn %d nhiệm vụ chưa hoàn thành", uncompletedTasks);
+
+                        // Thêm điều kiện lọc ngày hiện tại trong khoảng thời gian của mục tiêu
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            if (startDate != null && endDate != null && !currentDate.isBefore(startDate) && !currentDate.isAfter(endDate)) {
+                                addGoalCard(goalTitle, progressDisplay);
+                            }
+                        } else {
+                            // Xử lý cho các phiên bản Android cũ hơn nếu cần, hoặc bỏ qua việc lọc ngày
+                            addGoalCard(goalTitle, progressDisplay);
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FragmentStatistics", "Lỗi khi tải goalTasks: ", e);
                 });
     }
 
