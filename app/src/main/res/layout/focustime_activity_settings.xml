@@ -5,14 +5,15 @@
     android:id="@+id/focusTimeSettings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED"
+    android:background="?android:attr/colorBackground"
     android:scrollbars="none"
     tools:context="com.example.time4study.AcFocusMode.FocusTimeSettingsActivity">
 
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground">
 
         <!-- HEADER -->
         <LinearLayout
@@ -21,14 +22,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="22dp"
-            android:paddingVertical="15dp">
+            android:paddingVertical="15dp"
+            android:background="?android:attr/colorBackground">
 
             <ImageView
                 android:id="@+id/back_btn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="3.5dp"
-                android:src="@drawable/back_black" />
+                android:src="@drawable/ic_back_24" />
 
             <TextView
                 android:id="@+id/settings_txt"
@@ -37,7 +39,7 @@
                 android:layout_marginStart="15dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Settings"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="22sp" />
 
         </LinearLayout>
@@ -47,7 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/header"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="?android:attr/colorBackground">
 
             <!-- TIMER SETTINGS COMPONENTS -->
             <LinearLayout
@@ -56,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="visible"
+                android:background="?android:attr/colorBackground">
 
                 <!-- FOCUSED TIME CARD -->
                 <androidx.cardview.widget.CardView
@@ -69,7 +73,7 @@
                         android:id="@+id/focused_time_card_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
+                        android:background="?attr/colorSurface"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -85,7 +89,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_bold"
                                 android:text="Focused Time"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="18sp" />
 
                             <EditText
@@ -96,7 +100,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text="25"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -112,7 +116,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text=" mins"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp" />
 
                         </RelativeLayout>
@@ -146,7 +150,7 @@
                         android:id="@+id/short_break_card_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
+                        android:background="?attr/colorSurface"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -162,7 +166,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_bold"
                                 android:text="Short Break"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="18sp" />
 
                             <EditText
@@ -173,7 +177,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text="5"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -189,7 +193,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text=" mins"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp" />
 
                         </RelativeLayout>
@@ -223,7 +227,7 @@
                         android:id="@+id/long_break_card_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
+                        android:background="?attr/colorSurface"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -239,7 +243,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_bold"
                                 android:text="Long Break"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="18sp" />
 
                             <EditText
@@ -250,7 +254,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text="10"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -266,7 +270,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text=" mins"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp" />
 
                         </RelativeLayout>
@@ -300,7 +304,7 @@
                         android:id="@+id/sessions_card_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
+                        android:background="?attr/colorSurface"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -316,7 +320,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_bold"
                                 android:text="Sessions"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="18sp" />
 
                             <EditText
@@ -327,7 +331,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text="4"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -343,7 +347,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text=" sessions"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp" />
 
                         </RelativeLayout>
@@ -377,7 +381,7 @@
                         android:id="@+id/alarm_card_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
+                        android:background="?attr/colorSurface"
                         android:orientation="vertical"
                         android:padding="15dp">
 
@@ -393,7 +397,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_bold"
                                 android:text="Alarm"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="18sp" />
 
                             <EditText
@@ -404,7 +408,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text="3"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -420,7 +424,7 @@
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:text=" times"
-                                android:textColor="@color/black"
+                                android:textColor="?android:attr/textColorPrimary"
                                 android:textSize="16sp" />
 
                         </RelativeLayout>
@@ -454,7 +458,7 @@
                         android:id="@+id/auto_start_sessions_card_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
+                        android:background="?attr/colorSurface"
                         android:padding="15dp">
 
                         <TextView
@@ -465,7 +469,7 @@
                             android:layout_centerVertical="true"
                             android:fontFamily="@font/montserrat_bold"
                             android:text="Auto start sessions"
-                            android:textColor="@color/black"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="18sp" />
 
                         <androidx.appcompat.widget.SwitchCompat
@@ -498,7 +502,7 @@
                 android:layout_marginHorizontal="22dp"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="Timer and UI Settings are hidden during an ongoing pomodoro session. Pause the current timer to change the settings. It will reset the timer"
-                android:textColor="@color/black" />
+                android:textColor="?android:attr/textColorPrimary" />
 
         </LinearLayout>
 
@@ -513,7 +517,7 @@
             android:visibility="visible"
             android:fontFamily="@font/montserrat_regular"
             android:text="UI settings"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp" />
 
         <!-- UI SETTINGS COMPONENTS -->
@@ -539,7 +543,7 @@
                     android:id="@+id/keep_screen_awake_card_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:padding="15dp">
 
                     <TextView
@@ -550,7 +554,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Keep screen awake"
-                        android:textColor="@color/black"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -579,7 +583,7 @@
                     android:id="@+id/haptic_feedback_card_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:padding="15dp">
 
                     <TextView
@@ -590,7 +594,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Haptic feedback"
-                        android:textColor="@color/black"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -625,7 +629,7 @@
             android:visibility="visible"
             android:fontFamily="@font/montserrat_regular"
             android:text="Background Music"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp" />
 
         <!-- BACKGROUND MUSIC COMPONENTS -->
@@ -651,7 +655,7 @@
                     android:id="@+id/brown_noise_card_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:padding="15dp">
 
                     <TextView
@@ -661,7 +665,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="KeyBoard"
-                        android:textColor="@color/black"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -690,7 +694,7 @@
                     android:id="@+id/white_noise_card_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:padding="15dp">
 
                     <TextView
@@ -700,7 +704,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Water Stream"
-                        android:textColor="@color/black"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -729,7 +733,7 @@
                     android:id="@+id/rainfall_card_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:padding="15dp">
 
                     <TextView
@@ -739,7 +743,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Rainfall"
-                        android:textColor="@color/black"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -768,7 +772,7 @@
                     android:id="@+id/light_jazz_card_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:background="?attr/colorSurface"
                     android:padding="15dp">
 
                     <TextView
@@ -778,7 +782,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Light jazz"
-                        android:textColor="@color/black"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -794,7 +798,6 @@
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
-
 
             <!-- BLANK SPACE -->
             <RelativeLayout
@@ -813,7 +816,7 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Stats"
-            android:textColor="@color/black"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp" />
 
         <!-- YOUR STATS CARD -->
@@ -829,7 +832,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="?attr/colorSurface"
                 android:padding="15dp">
 
                 <TextView
@@ -839,7 +842,7 @@
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Check your stats"
-                    android:textColor="@color/black"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="18sp" />
 
                 <ImageView

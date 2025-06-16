@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="8dp"
-    android:background="@color/card">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="22dp">
+        android:padding="16dp">
 
         <!-- Title and Status -->
         <TextView
@@ -35,8 +35,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/textPrimary"
-                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:maxLines="2"
                 android:ellipsize="end" />
@@ -49,8 +49,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/ic_edit"
-                android:tint="@color/accent"
-                android:contentDescription="Edit goal" />
+                android:contentDescription="Edit goal"
+                app:tint="@color/accent" />
 
             <ImageButton
                 android:id="@+id/deleteButton"
@@ -60,8 +60,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/ic_delete"
-                android:tint="@color/accent"
-                android:contentDescription="Delete goal" />
+                android:contentDescription="Delete goal"
+                app:tint="@color/accent" />
         </LinearLayout>
 
         <!-- Description -->
@@ -70,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="15sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="14sp"
             android:maxLines="3"
             android:ellipsize="end" />
 
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -88,28 +88,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/accent"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginHorizontal="8dp"
                 android:src="@drawable/ic_arrow_right"
-                android:tint="@color/accent" />
+                app:tint="@color/accent" />
 
             <TextView
                 android:id="@+id/endDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/accent"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:background="@color/divider" />
 
         <!-- Progress -->
@@ -124,8 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Progress: "
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/progressTextView"
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/accent"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator

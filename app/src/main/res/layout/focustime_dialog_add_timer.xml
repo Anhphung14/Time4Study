@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical"
     android:padding="16dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/timer_name_input"
@@ -15,6 +18,7 @@
             android:layout_height="wrap_content"
             android:hint="Timer name"
             android:inputType="text"
+            android:textColor="?android:attr/textColorPrimary"
             android:maxLines="1"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_regular" />
@@ -23,7 +27,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/timer_duration_input"
@@ -31,6 +36,7 @@
             android:layout_height="wrap_content"
             android:hint="Duration (mins)"
             android:inputType="number"
+            android:textColor="?android:attr/textColorPrimary"
             android:maxLines="1"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_regular" />
@@ -39,7 +45,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/short_break_input"
@@ -47,6 +54,7 @@
             android:layout_height="wrap_content"
             android:hint="Short break (mins)"
             android:inputType="number"
+            android:textColor="?android:attr/textColorPrimary"
             android:maxLines="1"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_regular" />
@@ -55,7 +63,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/long_break_input"
@@ -63,6 +72,7 @@
             android:layout_height="wrap_content"
             android:hint="Long break (mins)"
             android:inputType="number"
+            android:textColor="?android:attr/textColorPrimary"
             android:maxLines="1"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_regular" />
