@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#52B6DF"
+            android:background="@color/colorPrimary"
             android:orientation="horizontal"
             android:paddingRight="10dp"
             android:paddingLeft="10dp">
@@ -33,15 +33,15 @@
                     android:layout_height="0dp"
                     android:layout_weight="2">
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/iconMenu"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:background="@android:color/transparent"-->
+                    <!--                    <ImageButton-->
+                    <!--                        android:id="@+id/iconMenu"-->
+                    <!--                        android:layout_width="30dp"-->
+                    <!--                        android:layout_height="30dp"-->
+                    <!--                        android:background="@android:color/transparent"-->
 
-<!--                        android:layout_centerVertical="true"-->
-<!--                        app:tint="@color/white"-->
-<!--                        android:src="@drawable/ic_menu" />-->
+                    <!--                        android:layout_centerVertical="true"-->
+                    <!--                        app:tint="@color/white"-->
+                    <!--                        android:src="@drawable/ic_menu" />-->
 
                     <ImageButton
                         android:id="@+id/btn_back_weekview"
@@ -55,11 +55,11 @@
 
                 </RelativeLayout>
 
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_weight="1">-->
-<!--                </RelativeLayout>-->
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="0dp"-->
+                <!--                    android:layout_weight="1">-->
+                <!--                </RelativeLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -81,20 +81,20 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="November"
-                        android:textColor="@color/white"
+                        android:textColor="@color/textColor"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/iconSearch"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:layout_marginRight="10dp"-->
-<!--                        android:layout_toLeftOf="@id/textToday"-->
-<!--                        android:background="@android:color/transparent"-->
-<!--                        android:src="@drawable/ic_search"-->
-<!--                        app:tint="@color/white" />-->
+                    <!--                    <ImageButton-->
+                    <!--                        android:id="@+id/iconSearch"-->
+                    <!--                        android:layout_width="30dp"-->
+                    <!--                        android:layout_height="30dp"-->
+                    <!--                        android:layout_centerVertical="true"-->
+                    <!--                        android:layout_marginRight="10dp"-->
+                    <!--                        android:layout_toLeftOf="@id/textToday"-->
+                    <!--                        android:background="@android:color/transparent"-->
+                    <!--                        android:src="@drawable/ic_search"-->
+                    <!--                        app:tint="@color/white" />-->
 
                     <TextView
                         android:id="@+id/textToday_weekview"
@@ -102,139 +102,139 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/custom_background"
+                        android:background="@drawable/rounded_button"
                         android:padding="5dp"
                         android:text="Today"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnBackground"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
 
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="center">-->
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="0dp"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:gravity="center">-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textDay1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:text="Sat"/>-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/textDay1"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:layout_centerVertical="true"-->
+                <!--                        android:text="Sat"/>-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textSpace"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_toRightOf="@id/textDay1"-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:text=" "/>-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/textSpace"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_toRightOf="@id/textDay1"-->
+                <!--                        android:layout_centerVertical="true"-->
+                <!--                        android:text=" "/>-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textDay2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_toRightOf="@id/textSpace"-->
-<!--                        android:padding="3dp"-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:text="31"/>-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/textDay2"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_toRightOf="@id/textSpace"-->
+                <!--                        android:padding="3dp"-->
+                <!--                        android:layout_centerVertical="true"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:text="31"/>-->
 
-<!--                </RelativeLayout>-->
+                <!--                </RelativeLayout>-->
             </LinearLayout>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/card"
             android:elevation="8dp"
             android:translationZ="1dp"
             android:paddingTop="2dp">
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/layout_task"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:orientation="horizontal">-->
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/layout_task"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                android:orientation="horizontal">-->
 
-<!--                <TextView-->
-<!--                    android:layout_width="40dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Task"/>-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="40dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:text="Task"/>-->
 
-<!--                <View-->
-<!--                    android:layout_width="1dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="#ddd"/>-->
+            <!--                <View-->
+            <!--                    android:layout_width="1dp"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:background="#ddd"/>-->
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/linearlayout_tasks"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:paddingTop="2dp"-->
-<!--                    android:paddingRight="5dp"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:visibility="gone"-->
-<!--                    android:layout_gravity="center">-->
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/linearlayout_tasks"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    android:paddingTop="2dp"-->
+            <!--                    android:paddingRight="5dp"-->
+            <!--                    android:layout_marginBottom="5dp"-->
+            <!--                    android:visibility="gone"-->
+            <!--                    android:layout_gravity="center">-->
 
-<!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:background="@drawable/custom_background_task"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_marginBottom="3dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:padding="2dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:paddingStart="10dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:textStyle="bold"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:text="Làm việc nhà"/>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:background="@drawable/custom_background_task"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_marginBottom="3dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:padding="2dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:paddingStart="10dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:textStyle="bold"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:text="Làm việc nhà"/>&ndash;&gt;-->
 
-<!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:background="@drawable/custom_background_task"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_marginBottom="3dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:padding="2dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:paddingStart="10dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:textStyle="bold"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:text="Làm việc nhà" />&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:background="@drawable/custom_background_task"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_marginBottom="3dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:padding="2dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:paddingStart="10dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:textStyle="bold"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:text="Làm việc nhà" />&ndash;&gt;-->
 
-<!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:background="@drawable/custom_background_task"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:layout_marginBottom="3dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:padding="2dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:paddingStart="10dp"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:textStyle="bold"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        android:text="Làm việc nhà" />&ndash;&gt;-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
+            <!--                    &lt;!&ndash;                    <TextView&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:background="@drawable/custom_background_task"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:layout_marginBottom="3dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:padding="2dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:paddingStart="10dp"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:textStyle="bold"&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        android:text="Làm việc nhà" />&ndash;&gt;-->
+            <!--                </LinearLayout>-->
+            <!--            </LinearLayout>-->
 
-<!--            <View-->
-<!--                android:id="@+id/underline"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="3dp"-->
-<!--                android:background="#ddd"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/layout_task"/>-->
+            <!--            <View-->
+            <!--                android:id="@+id/underline"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="3dp"-->
+            <!--                android:background="#ddd"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/layout_task"/>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            
+
             <LinearLayout
                 android:layout_width="40dp"
                 android:layout_height="match_parent"/>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -251,7 +251,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="MON"/>
 
 
@@ -260,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
                 </LinearLayout>
                 <LinearLayout
@@ -275,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="TUE"/>
 
 
@@ -284,7 +284,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
 
                 </LinearLayout>
@@ -301,7 +301,7 @@
                         android:layout_height="wrap_content"
 
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="WED"/>
 
 
@@ -310,7 +310,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
 
                 </LinearLayout>
@@ -327,7 +327,7 @@
                         android:layout_height="wrap_content"
 
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="THU"/>
 
 
@@ -336,7 +336,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
 
                 </LinearLayout>
@@ -353,7 +353,7 @@
                         android:layout_height="wrap_content"
 
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="FRI"/>
 
 
@@ -362,7 +362,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
 
                 </LinearLayout>
@@ -379,7 +379,7 @@
                         android:layout_height="wrap_content"
 
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="SAT"/>
 
 
@@ -388,7 +388,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
 
                 </LinearLayout>
@@ -405,7 +405,7 @@
                         android:layout_height="wrap_content"
 
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="SUN"/>
 
                     <TextView
@@ -413,7 +413,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:text="06/17"/>
 
                 </LinearLayout>
@@ -441,181 +441,208 @@
                 <LinearLayout
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
+                    android:background="?android:attr/colorBackground"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:gravity="center"
-                        android:text=""/>
+                        android:text=""
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="01:00"/>
+                        android:text="01:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="02:00"/>
+                        android:text="02:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="03:00"/>
+                        android:text="03:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="04:00"/>
+                        android:text="04:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="05:00"/>
+                        android:text="05:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="06:00"/>
+                        android:text="06:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="07:00"/>
+                        android:text="07:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="08:00"/>
+                        android:text="08:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="09:00"/>
+                        android:text="09:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="10:00"/>
+                        android:text="10:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="11:00"/>
+                        android:text="11:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="12:00"/>
+                        android:text="12:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="13:00"/>
+                        android:text="13:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="14:00"/>
+                        android:text="14:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="15:00"/>
+                        android:text="15:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="16:00"/>
+                        android:text="16:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="17:00"/>
+                        android:text="17:00"
+                        android:textColor="@color/textColor"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="18:00"/>
+                        android:text="18:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="19:00"/>
+                        android:text="19:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="20:00"/>
+                        android:text="20:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="21:00"/>
+                        android:text="21:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="22:00"/>
+                        android:text="22:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="23:00"/>
+                        android:text="23:00"
+                        android:textColor="@color/textColor"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text=""/>
+                        android:text=""
+                        android:textColor="@color/textColor"/>
                 </LinearLayout>
 
                 <View
@@ -642,7 +669,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -655,7 +683,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -668,7 +697,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -681,7 +711,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -694,7 +725,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -707,7 +739,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -720,7 +753,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -733,7 +767,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -746,7 +781,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -759,7 +795,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -772,7 +809,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -785,7 +823,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -798,7 +837,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -811,7 +851,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -824,7 +865,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -837,7 +879,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -850,7 +893,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -863,7 +907,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -876,7 +921,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -889,7 +935,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -901,20 +948,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -927,7 +962,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -940,7 +976,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -986,7 +1037,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -999,7 +1051,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1012,7 +1065,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1025,7 +1079,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1038,7 +1093,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1051,7 +1107,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1064,7 +1121,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1077,7 +1135,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1090,7 +1149,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1103,7 +1163,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1116,7 +1177,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1129,7 +1191,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1142,7 +1205,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1155,7 +1219,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1168,7 +1233,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1181,7 +1247,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1194,7 +1261,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1207,7 +1275,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1220,7 +1289,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1233,7 +1303,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1245,20 +1316,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1271,7 +1330,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1284,7 +1344,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1296,15 +1371,15 @@
 
                         </LinearLayout>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView_event"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:background="@drawable/custom_backgroud_timeline"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:backgroundTint="@color/color3"-->
-<!--                            android:text="Hoc bai"/>-->
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/textView_event"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="30dp"-->
+                        <!--                            android:background="@drawable/custom_backgroud_timeline"-->
+                        <!--                            android:paddingLeft="10dp"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:backgroundTint="@color/color3"-->
+                        <!--                            android:text="Hoc bai"/>-->
 
                         <View
                             android:layout_width="1dp"
@@ -1330,7 +1405,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1343,7 +1419,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1356,7 +1433,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1369,7 +1447,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1382,7 +1461,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1395,7 +1475,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1408,7 +1489,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1421,7 +1503,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1434,7 +1517,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1447,7 +1531,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1460,7 +1545,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1473,7 +1559,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1486,7 +1573,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1499,7 +1587,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1512,7 +1601,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1525,7 +1615,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1538,7 +1629,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1551,7 +1643,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1564,7 +1657,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1577,7 +1671,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1589,20 +1684,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1615,7 +1698,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1628,7 +1712,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1640,15 +1739,15 @@
 
                         </LinearLayout>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView_event"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:background="@drawable/custom_backgroud_timeline"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:backgroundTint="@color/color3"-->
-<!--                            android:text="Hoc bai"/>-->
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/textView_event"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="30dp"-->
+                        <!--                            android:background="@drawable/custom_backgroud_timeline"-->
+                        <!--                            android:paddingLeft="10dp"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:backgroundTint="@color/color3"-->
+                        <!--                            android:text="Hoc bai"/>-->
 
                         <View
                             android:layout_width="1dp"
@@ -1674,7 +1773,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1687,7 +1787,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1700,7 +1801,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1713,7 +1815,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1726,7 +1829,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1739,7 +1843,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1752,7 +1857,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1765,7 +1871,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1778,7 +1885,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1791,7 +1899,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1804,7 +1913,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1817,7 +1927,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1830,7 +1941,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1843,7 +1955,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1856,7 +1969,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1869,7 +1983,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1882,7 +1997,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1895,7 +2011,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1908,7 +2025,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1921,7 +2039,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1933,20 +2052,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1959,7 +2066,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1972,7 +2080,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -1984,15 +2107,15 @@
 
                         </LinearLayout>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView_event"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:background="@drawable/custom_backgroud_timeline"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:backgroundTint="@color/color3"-->
-<!--                            android:text="Hoc bai"/>-->
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/textView_event"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="30dp"-->
+                        <!--                            android:background="@drawable/custom_backgroud_timeline"-->
+                        <!--                            android:paddingLeft="10dp"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:backgroundTint="@color/color3"-->
+                        <!--                            android:text="Hoc bai"/>-->
 
                         <View
                             android:layout_width="1dp"
@@ -2018,7 +2141,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2031,7 +2155,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2044,7 +2169,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2057,7 +2183,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2070,7 +2197,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2083,7 +2211,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2096,7 +2225,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2109,7 +2239,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2122,7 +2253,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2135,7 +2267,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2148,7 +2281,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2161,7 +2295,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2174,7 +2309,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2187,7 +2323,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2200,7 +2337,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2213,7 +2351,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2226,7 +2365,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2239,7 +2379,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2252,7 +2393,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2265,7 +2407,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2277,20 +2420,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2303,7 +2434,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2316,7 +2448,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2328,15 +2475,15 @@
 
                         </LinearLayout>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView_event"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:background="@drawable/custom_backgroud_timeline"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:backgroundTint="@color/color3"-->
-<!--                            android:text="Hoc bai"/>-->
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/textView_event"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="30dp"-->
+                        <!--                            android:background="@drawable/custom_backgroud_timeline"-->
+                        <!--                            android:paddingLeft="10dp"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:backgroundTint="@color/color3"-->
+                        <!--                            android:text="Hoc bai"/>-->
 
                         <View
                             android:layout_width="1dp"
@@ -2362,7 +2509,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2375,7 +2523,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2388,7 +2537,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2401,7 +2551,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2414,7 +2565,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2427,7 +2579,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2440,7 +2593,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2453,7 +2607,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2466,7 +2621,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2479,7 +2635,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2492,7 +2649,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2505,7 +2663,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2518,7 +2677,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2531,7 +2691,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2544,7 +2705,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2557,7 +2719,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2570,7 +2733,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2583,7 +2747,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2596,7 +2761,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2609,7 +2775,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2621,20 +2788,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2647,7 +2802,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2660,7 +2816,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2672,15 +2843,15 @@
 
                         </LinearLayout>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView_event"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:background="@drawable/custom_backgroud_timeline"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:backgroundTint="@color/color3"-->
-<!--                            android:text="Hoc bai"/>-->
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/textView_event"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="30dp"-->
+                        <!--                            android:background="@drawable/custom_backgroud_timeline"-->
+                        <!--                            android:paddingLeft="10dp"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:backgroundTint="@color/color3"-->
+                        <!--                            android:text="Hoc bai"/>-->
 
                         <View
                             android:layout_width="1dp"
@@ -2706,7 +2877,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2719,7 +2891,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2732,7 +2905,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2745,7 +2919,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2758,7 +2933,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2771,7 +2947,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2784,7 +2961,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2797,7 +2975,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2810,7 +2989,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2823,7 +3003,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2836,7 +3017,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2849,7 +3031,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2862,7 +3045,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2875,7 +3059,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2888,7 +3073,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2901,7 +3087,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2914,7 +3101,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2927,7 +3115,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2940,7 +3129,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2953,7 +3143,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2965,20 +3156,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#ddd"/>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -2991,7 +3170,8 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -3004,7 +3184,22 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="#ddd"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="?android:attr/colorBackground">
 
                                 <View
                                     android:layout_width="match_parent"
@@ -3016,15 +3211,15 @@
 
                         </LinearLayout>
 
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView_event"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:background="@drawable/custom_backgroud_timeline"-->
-<!--                            android:paddingLeft="10dp"-->
-<!--                            android:layout_marginRight="5dp"-->
-<!--                            android:backgroundTint="@color/color3"-->
-<!--                            android:text="Hoc bai"/>-->
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/textView_event"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="30dp"-->
+                        <!--                            android:background="@drawable/custom_backgroud_timeline"-->
+                        <!--                            android:paddingLeft="10dp"-->
+                        <!--                            android:layout_marginRight="5dp"-->
+                        <!--                            android:backgroundTint="@color/color3"-->
+                        <!--                            android:text="Hoc bai"/>-->
 
                     </RelativeLayout>
 
@@ -3050,46 +3245,46 @@
     </FrameLayout>
 
 
-<!--    <FrameLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
+    <!--    <FrameLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
 
-<!--        <com.getbase.floatingactionbutton.FloatingActionsMenu-->
-<!--            android:id="@+id/fab_menu"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:fab_labelsPosition="left"-->
-<!--            app:fab_labelStyle="@style/LabelStyle"-->
-<!--            android:layout_gravity="bottom|end">-->
+    <!--        <com.getbase.floatingactionbutton.FloatingActionsMenu-->
+    <!--            android:id="@+id/fab_menu"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:fab_labelsPosition="left"-->
+    <!--            app:fab_labelStyle="@style/LabelStyle"-->
+    <!--            android:layout_gravity="bottom|end">-->
 
-<!--            <com.getbase.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/fab_add_new_task"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:fab_colorNormal="#fff"-->
-<!--                app:fab_title="Add new task"-->
-<!--                app:fab_icon="@drawable/ic_task"/>-->
+    <!--            <com.getbase.floatingactionbutton.FloatingActionButton-->
+    <!--                android:id="@+id/fab_add_new_task"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                app:fab_colorNormal="#fff"-->
+    <!--                app:fab_title="Add new task"-->
+    <!--                app:fab_icon="@drawable/ic_task"/>-->
 
-<!--            <com.getbase.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/fab_add_new_event"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:fab_colorNormal="#fff"-->
-<!--                app:fab_title="Add new event"-->
-<!--                app:fab_icon="@drawable/ic_event"/>-->
+    <!--            <com.getbase.floatingactionbutton.FloatingActionButton-->
+    <!--                android:id="@+id/fab_add_new_event"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                app:fab_colorNormal="#fff"-->
+    <!--                app:fab_title="Add new event"-->
+    <!--                app:fab_icon="@drawable/ic_event"/>-->
 
-<!--        </com.getbase.floatingactionbutton.FloatingActionsMenu>-->
-<!--    </FrameLayout>-->
+    <!--        </com.getbase.floatingactionbutton.FloatingActionsMenu>-->
+    <!--    </FrameLayout>-->
 
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:id="@+id/navigation_view_weekview"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:menu="@menu/drawer"-->
-<!--        android:layout_gravity="start"-->
-<!--        app:itemBackground="@drawable/nav_item_background"-->
-<!--        app:itemIconPadding="30dp">-->
-<!--    </com.google.android.material.navigation.NavigationView>-->
+    <!--    <com.google.android.material.navigation.NavigationView-->
+    <!--        android:id="@+id/navigation_view_weekview"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:menu="@menu/drawer"-->
+    <!--        android:layout_gravity="start"-->
+    <!--        app:itemBackground="@drawable/nav_item_background"-->
+    <!--        app:itemIconPadding="30dp">-->
+    <!--    </com.google.android.material.navigation.NavigationView>-->
 
 
 

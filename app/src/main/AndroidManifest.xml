@@ -23,10 +23,10 @@
         <activity
             android:name=".StudySchedule.WeekViewStudyScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name=".StudySchedule.StudyScheduleActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="false"

@@ -42,6 +42,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -497,6 +498,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
 //                            TextView textView = customView.findViewById(R.id.title);
 //                            textView.setText(labels.get(i));
                                 checkBox.setButtonTintList(ColorStateList.valueOf(Color.parseColor(calendar.getColorCode())));
+                            checkBox.setTextColor(ContextCompat.getColor(StudyScheduleActivity.this, R.color.textColor));
 
                             if (calendar.isChecked()) {
                                 checkBox.setChecked(true);
