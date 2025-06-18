@@ -6,6 +6,9 @@ import com.example.models.CalendarModel;
 import com.example.models.Event;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -36,6 +39,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -68,8 +72,8 @@ public class StudyScheduleActivity extends AppCompatActivity {
     // LAYOUT RIGHT THERE
     private RelativeLayout relativeLayout_timeline_table;
     private LinearLayout linearLayout_task;
-    private ImageButton buttonMenu;
-    private TextView textView, textDay1, textDay2, textDay3;
+    private ImageButton buttonMenu, btnBack;
+    private TextView textView, textDay1, textDay2, textDay3, textToday;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FloatingActionButton fab_add_new_task, fab_add_new_event;
@@ -84,6 +88,8 @@ public class StudyScheduleActivity extends AppCompatActivity {
     private HashMap<String, String> calendarIds = new HashMap<>();
     private Calendar startCalendar;
     private HashMap<String, String> calendarMap = new HashMap<>();
+    private Menu menu;
+
 
     //Firebase
     private FirebaseFirestore db;
@@ -103,7 +109,6 @@ public class StudyScheduleActivity extends AppCompatActivity {
         updateCalendar();
         updateEvent();
 
-
         buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +126,8 @@ public class StudyScheduleActivity extends AppCompatActivity {
                         return true;
                     case R.id.navViewWeek:
                         Log.d("nav", "navviewweek");
+                        Intent intent = new Intent(StudyScheduleActivity.this, WeekViewStudyScheduleActivity.class);
+                        startActivityForResult(intent, 100);
                         return true;
                     case R.id.navViewMonth:
                         Log.d("nav", "navviewmonth");
@@ -133,8 +140,17 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
                 View actionView = item.getActionView();
                 if (actionView != null) {
-                    CheckBox checkbox = actionView.findViewById(R.id.checkbox);
-                    checkbox.setChecked(!checkbox.isChecked());
+                    CheckBox checkbox = actionView.findViewById(R.id.checkbox_task);
+                    if (checkbox == null) {
+                        // Nếu không có, thử tìm theo id khác
+                        checkbox = actionView.findViewById(R.id.checkbox);
+                    }
+
+                    if (checkbox != null) {
+                        checkbox.setChecked(!checkbox.isChecked());
+                    } else {
+                        Log.e("Navigation", "Không tìm thấy checkbox trong actionLayout");
+                    }
                 }
 
                 return false;
@@ -142,6 +158,29 @@ public class StudyScheduleActivity extends AppCompatActivity {
         });
 
 
+        textToday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                updateCurrentDate();
+                updateTask();
+                updateEvent();
+            }
+        });
+
+        textDay3.setOnClickListener(v -> {
+            new DatePickerDialog(this,
+                    (view, year, month, dayOfMonth) -> {
+                        calendar.set(year, month, dayOfMonth);
+//                        startCalendar.set(year, month, dayOfMonth);
+                        updateCurrentDate();
+                        updateTask();
+                        updateEvent();
+                    },
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
 
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -176,6 +215,39 @@ public class StudyScheduleActivity extends AppCompatActivity {
             }
         });
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        String prefsFile = "Prefs_TASK_CHECK_STATUS_" + uid;
+        SharedPreferences prefs = getSharedPreferences(prefsFile, MODE_PRIVATE);
+        boolean isCheckedCheckbox = prefs.getBoolean("checkbox_status", false);
+
+        MenuItem item = menu.findItem(R.id.navTask);
+        View actionView = item.getActionView();
+        CheckBox checkBox_task = actionView.findViewById(R.id.checkbox_task);
+        checkBox_task.setChecked(isCheckedCheckbox);
+        if (isCheckedCheckbox) {
+            linearLayout_task.setVisibility(View.VISIBLE);
+        } else {
+            linearLayout_task.setVisibility(View.GONE);
+        }
+
+        checkBox_task.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                linearLayout_task.setVisibility(View.VISIBLE);
+            } else {
+                linearLayout_task.setVisibility(View.GONE);
+            }
+
+            prefs.edit().putBoolean("checkbox_status", isChecked).apply();
+        });
+
+
+
         drawerLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -185,17 +257,32 @@ public class StudyScheduleActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            MenuItem dayViewItem = menu.findItem(R.id.navViewDay);
+            dayViewItem.setChecked(true);
+        }
+
+    }
+
     public void init() {
         textView = findViewById(R.id.textView_event);
         textDay1 = findViewById(R.id.textDay1);
         textDay2 = findViewById(R.id.textDay2);
         textDay3 = findViewById(R.id.textDay3);
+        textToday = findViewById(R.id.textToday);
 
         relativeLayout_timeline_table = findViewById(R.id.relativelayout_timeline_table);
         linearLayout_task = findViewById(R.id.linearlayout_tasks);
         buttonMenu = findViewById(R.id.iconMenu);
         drawerLayout = findViewById(R.id.calendar_view_day_drawer);
         navigationView = findViewById(R.id.navigation_view);
+        btnBack = findViewById(R.id.btn_back_dayview);
+
+        menu = navigationView.getMenu();
 
         fab_add_new_task = findViewById(R.id.fab_add_new_task);
         fab_add_new_event = findViewById(R.id.fab_add_new_event);
@@ -370,11 +457,10 @@ public class StudyScheduleActivity extends AppCompatActivity {
     }
 
     public void updateCalendar() {
-        Menu menu = navigationView.getMenu();
-
         for (int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
-            if (item.getGroupId() == R.id.group2 || item.getGroupId() == R.id.group3) {
+
+            if ((item.getGroupId() == R.id.group2 || item.getGroupId() == R.id.group3) && item.getItemId() != R.id.navTask) {
                 menu.removeItem(item.getItemId());
                 i--;
             }
@@ -401,71 +487,59 @@ public class StudyScheduleActivity extends AppCompatActivity {
 //                            calendarIds.put(calendar.getTitle(), calendar.getId());
 
 //                            for (Map.Entry<String, Integer> entry : hashMapCalendar.entrySet()) {
-                                MenuItem item = menu.add(R.id.group2, Menu.NONE, Menu.NONE, calendar.getTitle());
-                                item.setCheckable(true);
-                                item.setActionView(R.layout.menu_item_checkbox); // Layout chứa checkbox và text
+                            MenuItem item = menu.add(R.id.group2, Menu.NONE, Menu.NONE, calendar.getTitle());
+                            item.setCheckable(true);
+                            item.setActionView(R.layout.menu_item_checkbox); // Layout chứa checkbox và text
 
                                 // Thiết lập màu (custom view)
-                                View customView = item.getActionView();
-                                CheckBox checkBox = customView.findViewById(R.id.checkbox);
+                            View customView = item.getActionView();
+                            CheckBox checkBox = customView.findViewById(R.id.checkbox);
 //                            TextView textView = customView.findViewById(R.id.title);
 //                            textView.setText(labels.get(i));
                                 checkBox.setButtonTintList(ColorStateList.valueOf(Color.parseColor(calendar.getColorCode())));
 
-                                if (calendar.isChecked()) {
-                                    checkBox.setChecked(true);
-                                } else {
-                                    checkBox.setChecked(false);
-                                }
+                            if (calendar.isChecked()) {
+                                checkBox.setChecked(true);
+                            } else {
+                                checkBox.setChecked(false);
+                            }
 
-                                ImageButton recycleBin = customView.findViewById(R.id.delete_calendar);
-                                ImageButton editPen = customView.findViewById(R.id.edit_calendar);
+                            ImageButton recycleBin = customView.findViewById(R.id.delete_calendar);
+                            ImageButton editPen = customView.findViewById(R.id.edit_calendar);
 
-                                final Handler handler = new Handler();
-                                final long startTime = System.currentTimeMillis();
-                                final long delay = 500; // 1.5 giây
+                            final Handler handler = new Handler();
+                            final long startTime = System.currentTimeMillis();
+                            final long delay = 500; // 1.5 giây
 
-                                checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                                    Log.d("Task", ">>>>>>> " + item.getTitle().toString() + " checked: " + isChecked);
+                            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                                Log.d("Task", ">>>>>>> " + item.getTitle().toString() + " checked: " + isChecked);
 
-                                    // Xử lý logic dựa trên tiêu đề và trạng thái checkbox
-                                    if (item.getTitle().toString().equals("Task") && isChecked) {
-                                        linearLayout_task.setVisibility(View.VISIBLE);
-                                    } else if (item.getTitle().toString().equals("Task") && !isChecked) {
-                                        linearLayout_task.setVisibility(View.GONE);
-                                    }
-
-                                    updateStatusCheckboxCalendar(calendar);
-                                    updateEventsWhenCheckedCheckbox();
-
-//                                Log.d("task", "<<<<<<<<<<<<<< " + item.getTitle() + ": " + calendarIds.get(item.getTitle()));
-                                });
-
+                                updateStatusCheckboxCalendar(calendar);
+//                                    updateEventsWhenCheckedCheckbox();
+                                updateEvent();
+                            });
 
                                 // xoa calendar
-                                recycleBin.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                            recycleBin.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
 //                                    Log.d("recycleBin", "da vao day " + item.getTitle().toString() + ": " + calendarIds.get(item.getTitle()));
 //                                        deleteCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
-                                        deleteCalendar(item.getTitle().toString(), calendar.getId());
-                                    }
-                                });
+                                    deleteCalendar(item.getTitle().toString(), calendar.getId());
+                                }
+                            });
 
-
-                                // sua calendar
-                                editPen.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                            // sua calendar
+                            editPen.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
 //                                    Log.d("editpen", "da vao day " + item.getTitle().toString() + ": " + calendarIds.get(item.getTitle()));
-                                        editCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
-                                        editCalendar(item.getTitle().toString(), calendar.getId());
-                                    }
-                                });
+                                    editCalendar(item.getTitle().toString(), calendarIds.get(item.getTitle()));
+                                    editCalendar(item.getTitle().toString(), calendar.getId());
+                                }
+                            });
 //                            }
                         }
-
-
 
                         MenuItem item = menu.add(R.id.group3, Menu.NONE, Menu.NONE, "Add new Calendar");
                         item.setIcon(R.drawable.ic_add_calendar);
@@ -492,69 +566,60 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 });
     }
 
-    public void updateEventsWhenCheckedCheckbox() {
-        Log.d("listCalendarIdChecked", "da vo day 1");
-        db.collection("calendars")
-                .whereEqualTo("uid", uid)
-                .whereEqualTo("isChecked", true)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("listCalendarIdChecked", "da vo day 2");
-                        List<String> listCalendarIdChecked = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            listCalendarIdChecked.add(document.getId());
-                        }
-
-                        Log.d("listCalendarIdChecked", ">>>>>" +String.valueOf(listCalendarIdChecked.size()));
-                        getAllEventsByCalendarIdChcked(listCalendarIdChecked);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("updateEventsWhenCheckedCheckbox", e.getMessage());
-                });
-    }
-
-    public void getAllEventsByCalendarIdChcked(List<String> listCalendarIdChecked) {
-        List<View> eventRemove = new ArrayList<>();
-
-        for (int i = 0; i < relativeLayout_timeline_table.getChildCount(); i++) {
-            View child = relativeLayout_timeline_table.getChildAt(i);
-            if (child instanceof TextView) {
-                eventRemove.add(child);
-            }
-        }
-
-        for (View view : eventRemove) {
-            relativeLayout_timeline_table.removeView(view);
-        }
+//    public void getAllEventsByCalendarIdChecked(List<String> listCalendarIdChecked) {
+//        List<View> eventRemove = new ArrayList<>();
 //
-        db.collection("events")
-                .whereEqualTo("uid", uid)
-                .whereIn("calendarId", listCalendarIdChecked)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Event event = new Event();
-
-                            event.setId(document.getId());
-                            event.setCalendarId(document.getString("calendarId"));
-                            event.setTitle(document.getString("title"));
-                            event.setStartTime(document.getTimestamp("startTime"));
-                            event.setEndTime(document.getTimestamp("endTime"));
-
-                            addEventToLayout(event);
-                        }
-                    }
-
-                    Log.d("getAllEventsByCalendarIdChcked", " thanh cong");
-                })
-                .addOnFailureListener(e -> {
-                    Log.d("getAllEventsByCalendarIdChcked", e.getMessage());
-                });
-
-    }
+//        for (int i = 0; i < relativeLayout_timeline_table.getChildCount(); i++) {
+//            View child = relativeLayout_timeline_table.getChildAt(i);
+//            if (child instanceof TextView) {
+//                eventRemove.add(child);
+//            }
+//        }
+//
+//        for (View view : eventRemove) {
+//            relativeLayout_timeline_table.removeView(view);
+//        }
+//
+//        Calendar start = (Calendar) calendar.clone();
+//        start.set(Calendar.HOUR_OF_DAY, 0);
+//        start.set(Calendar.MINUTE, 0);
+//        start.set(Calendar.SECOND, 0);
+//        start.set(Calendar.MILLISECOND, 0);
+//
+//        Calendar end = (Calendar) calendar.clone();
+//        end.set(Calendar.HOUR_OF_DAY, 23);
+//        end.set(Calendar.MINUTE, 59);
+//        end.set(Calendar.SECOND, 59);
+//        end.set(Calendar.MILLISECOND, 999);
+//
+//        db.collection("events")
+//                .whereEqualTo("uid", uid)
+//                .whereGreaterThanOrEqualTo("startTime", start.getTime())
+//                .whereLessThanOrEqualTo("endTime", end.getTime())
+//                .whereIn("calendarId", listCalendarIdChecked)
+//                .get()
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        for (QueryDocumentSnapshot document : task.getResult()) {
+//                            Event event = new Event();
+//
+//                            event.setId(document.getId());
+//                            event.setCalendarId(document.getString("calendarId"));
+//                            event.setTitle(document.getString("title"));
+//                            event.setStartTime(document.getTimestamp("startTime"));
+//                            event.setEndTime(document.getTimestamp("endTime"));
+//
+//                            addEventToLayout(event);
+//                        }
+//                    }
+//
+//                    Log.d("getAllEventsByCalendarIdChcked", " thanh cong");
+//                })
+//                .addOnFailureListener(e -> {
+//                    Log.d("getAllEventsByCalendarIdChcked", e.getMessage());
+//                });
+//
+//    }
 
     public void addCalendar() {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -748,68 +813,57 @@ public class StudyScheduleActivity extends AppCompatActivity {
         end.set(Calendar.SECOND, 59);
         end.set(Calendar.MILLISECOND, 999);
 
-        db.collection("events")
+        db.collection("calendars")
                 .whereEqualTo("uid", uid)
-                .whereGreaterThanOrEqualTo("startTime", start.getTime())
-                .whereLessThanOrEqualTo("endTime", end.getTime())
+                .whereEqualTo("isChecked", true)
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-//                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-//                        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Event event = new Event();
-//                            String eventId = document.getId();
-//                            String title = document.getString("title");
-//                            String calendarId = document.getString("calendarId");
-                            Date startTimestamp = document.getDate("startTime");
-                            Date endTimestamp = document.getDate("endTime");
-
-                            event.setId(document.getId());
-                            event.setTitle(document.getString("title"));
-                            event.setStartTime(new Timestamp(startTimestamp));
-                            event.setEndTime(new Timestamp(endTimestamp));
-                            event.setCalendarId(document.getString("calendarId"));
-                            event.setUid(uid);
-
-                            Log.d("eventColor", event.getCalendarId());
-
-//                            Calendar calStart = Calendar.getInstance();
-//                            calStart.setTime(startTimestamp);
-//                            calStart.setTime(startTimestamp);
-//                            calStart.set(Calendar.SECOND, 0);
-//                            calStart.set(Calendar.MILLISECOND, 0);
-//
-//                            Calendar calEnd = Calendar.getInstance();
-//                            calEnd.setTime(endTimestamp);
-//                            calEnd.set(Calendar.SECOND, 0);
-//                            calEnd.set(Calendar.MILLISECOND, 0);
-//
-//                            // 👉 Tính giờ bắt đầu và kết thúc dạng số thực
-//                            int startHour = calStart.get(Calendar.HOUR_OF_DAY);
-//                            int startMinute = calStart.get(Calendar.MINUTE);
-//                            double startDecimal = startHour + (startMinute / 60.0);
-//
-//                            int endHour = calEnd.get(Calendar.HOUR_OF_DAY);
-//                            int endMinute = calEnd.get(Calendar.MINUTE);
-//                            double endDecimal = endHour + (endMinute / 60.0);
-//
-//                            // 👉 Tính chênh lệch thời gian
-//                            long diffMillis = calEnd.getTimeInMillis() - calStart.getTimeInMillis();
-//                            long diffMinutes = diffMillis / (60 * 1000);
-//                            double diffHours = diffMinutes / 60.0;
-
-//                            Log.d("event",  + " | " + title + " | Start: " + startDecimal + " | End: " + endDecimal +
-//                                    " | Duration: " + diffMinutes + " phút = " + diffHours + " giờ");
-
-                            addEventToLayout(event);
-
+                .addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        Log.d("listCalendarIdChecked", "da vo day 2");
+                        List<String> listCalendarIdChecked = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task1.getResult()) {
+                            listCalendarIdChecked.add(document.getId());
                         }
+
+                        if (listCalendarIdChecked.isEmpty()) {
+                            return;
+                        }
+
+                        Log.d("listCalendarIdChecked", ">>>>>" + String.valueOf(listCalendarIdChecked.size()));
+                        db.collection("events")
+                                .whereEqualTo("uid", uid)
+                                .whereGreaterThanOrEqualTo("startTime", start.getTime())
+                                .whereLessThanOrEqualTo("endTime", end.getTime())
+                                .whereIn("calendarId", listCalendarIdChecked)
+                                .get()
+                                .addOnCompleteListener(task2 -> {
+                                    if (task2.isSuccessful()) {
+
+                                        for (QueryDocumentSnapshot document : task2.getResult()) {
+                                            Event event = new Event();
+                                            Date startTimestamp = document.getDate("startTime");
+                                            Date endTimestamp = document.getDate("endTime");
+
+                                            event.setId(document.getId());
+                                            event.setTitle(document.getString("title"));
+                                            event.setStartTime(new Timestamp(startTimestamp));
+                                            event.setEndTime(new Timestamp(endTimestamp));
+                                            event.setCalendarId(document.getString("calendarId"));
+                                            event.setUid(uid);
+
+                                            Log.d("eventColor", event.getCalendarId());
+
+                                            addEventToLayout(event);
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.d("❌ Lỗi khi lấy dữ liệu: ", e.getMessage());
+                                });
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Log.d("❌ Lỗi khi lấy dữ liệu: ", e.getMessage());
+                    Log.e("updateEventsWhenCheckedCheckbox", e.getMessage());
                 });
     }
 

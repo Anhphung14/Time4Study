@@ -1,6 +1,12 @@
 package com.example.models;
 
+import android.graphics.Color;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.Timestamp;
+
+import java.util.Calendar;
 
 public class Event {
     private String id;

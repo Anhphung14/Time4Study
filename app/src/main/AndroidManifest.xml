@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- Quyền ứng dụng -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -20,24 +21,28 @@
         android:theme="@style/Theme.App.SplashScreen"
         tools:targetApi="31">
         <activity
+            android:name=".StudySchedule.WeekViewStudyScheduleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".StudySchedule.StudyScheduleActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".EditProfileActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name=".HoSoActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="false" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" /> <!-- Màn hình đăng nhập (màn hình khởi đầu) -->
         <activity
             android:name=".AcFocusMode.FocusTimeSettingsActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name=".AcFocusMode.FocusTimeStatsActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -48,9 +53,8 @@
 
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="true">
-
+            android:exported="true"
+            android:theme="@style/Theme.Time4Study">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,15 +63,15 @@
         </activity> <!-- Màn hình đăng ký -->
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="false" /> <!-- Màn hình quên mật khẩu -->
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" /> <!-- Màn hình quên mật khẩu -->
         <activity
             android:name=".ForgotPasswordActivity"
-            android:theme="@style/Theme.Time4Study"
-            android:exported="false" /> <!-- Màn hình chính -->
-        <!--        <activity-->
-        <!--            android:name=".MainActivity"-->
-        <!--            android:exported="false" /> &lt;!&ndash; Ghi chú &ndash;&gt;-->
+            android:exported="false"
+            android:theme="@style/Theme.Time4Study" /> <!-- Màn hình chính -->
+        <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:exported="false" /> &lt;!&ndash; Ghi chú &ndash;&gt; -->
         <activity
             android:name=".NotesActivity"
             android:theme="@style/Theme.Time4Study" />
@@ -78,29 +82,27 @@
         <activity
             android:name="com.example.activities.AddGoalActivity"
             android:exported="false"
-            android:theme="@style/Theme.Time4Study"/>
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name="com.example.activities.MyGoalsActivity"
             android:exported="false"
-            android:theme="@style/Theme.Time4Study"/>
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name="com.example.activities.AISupportActivity"
             android:exported="false"
-            android:theme="@style/Theme.Time4Study"/>
+            android:theme="@style/Theme.Time4Study" />
         <activity
             android:name="com.example.activities.ChatHistoryActivity"
             android:exported="false"
-            android:theme="@style/Theme.Time4Study"/>
+            android:theme="@style/Theme.Time4Study" />
         <activity
-            android:name="com.example.time4study.DocumentsActivity"
+            android:name=".DocumentsActivity"
             android:exported="false"
             android:theme="@style/Theme.Time4Study" />
         <activity
-            android:name="com.example.time4study.FolderDocumentsActivity"
+            android:name=".FolderDocumentsActivity"
             android:exported="false"
             android:theme="@style/Theme.Time4Study" />
-
-
     </application>
 
 </manifest>
