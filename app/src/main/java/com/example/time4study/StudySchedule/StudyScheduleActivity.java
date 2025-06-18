@@ -129,9 +129,9 @@ public class StudyScheduleActivity extends AppCompatActivity {
                         Intent intent = new Intent(StudyScheduleActivity.this, WeekViewStudyScheduleActivity.class);
                         startActivityForResult(intent, 100);
                         return true;
-                    case R.id.navViewMonth:
-                        Log.d("nav", "navviewmonth");
-                        return true;
+//                    case R.id.navViewMonth:
+//                        Log.d("nav", "navviewmonth");
+//                        return true;
                 }
 
                 if (item.getTitle().equals("Add new Calendar")) {

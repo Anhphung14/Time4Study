@@ -12,10 +12,10 @@
             android:id="@+id/navViewWeek"
             android:title="Week"
             android:icon="@drawable/icon_calendar_view_week" />
-        <item
-            android:id="@+id/navViewMonth"
-            android:title="Month"
-            android:icon="@drawable/icon_calendar_view_month" />
+<!--        <item-->
+<!--            android:id="@+id/navViewMonth"-->
+<!--            android:title="Month"-->
+<!--            android:icon="@drawable/icon_calendar_view_month" />-->
     </group>
 
     <group android:id="@+id/group2">
