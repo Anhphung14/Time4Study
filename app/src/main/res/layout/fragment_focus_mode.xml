@@ -47,11 +47,12 @@
     <!-- CONTAINER -->
 
     <!-- SESSIONS COUNT TXT -->
+
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
     <TextView
         android:id="@+id/sessions_txt"

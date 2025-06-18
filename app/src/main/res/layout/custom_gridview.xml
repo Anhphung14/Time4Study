@@ -10,7 +10,7 @@
     app:cardElevation="2dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="?attr/colorSurface"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp"
             android:layout_marginBottom="12dp"
-            app:cardBackgroundColor="#F5F5F5">
+            app:cardBackgroundColor="?android:attr/colorBackgroundFloating">
 
             <ImageView
                 android:id="@+id/itemMenu"
