@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?android:attr/colorBackground">
+    android:background="@color/white">
 
     <!-- ✅ Toolbar dùng cho EditNoteActivity -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?android:attr/colorBackground"
+        android:background="@color/white"
         app:navigationIcon="@drawable/ic_close"
-        app:titleTextColor="?android:attr/textColorPrimary"
+        app:titleTextColor="@color/black"
         android:title="Chỉnh sửa ghi chú" />
 
     <!-- Nội dung -->
@@ -33,10 +33,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Chủ đề/Môn học"
-                android:textColorHint="?android:attr/textColorHint"
+                android:textColorHint="@color/black"
                 android:background="@android:color/transparent"
                 android:textSize="16sp"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/black"
                 android:layout_marginBottom="16dp" />
 
             <EditText
@@ -44,9 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tiêu đề"
-                android:textColorHint="?android:attr/textColorHint"
+                android:textColorHint="@color/black"
                 android:background="@android:color/transparent"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -56,11 +56,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nội dung ghi chú"
-                android:textColorHint="?android:attr/textColorHint"
+                android:textColorHint="@color/black"
                 android:background="@android:color/transparent"
                 android:minHeight="200dp"
                 android:gravity="top"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/black"
                 android:inputType="textMultiLine"
                 android:maxLines="10" />
 
@@ -88,7 +88,8 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_images" />
+                    android:src="@drawable/ic_images"
+                    />
 
                 <ImageButton
                     android:id="@+id/btn_color"
@@ -97,7 +98,7 @@
                     android:layout_marginStart="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_color"
-                    app:tint="?attr/colorAccent"/>
+                    app:tint="@color/black"/>
 
                 <ImageButton
                     android:id="@+id/btn_pin"
@@ -106,7 +107,8 @@
                     android:layout_marginStart="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_pin"
-                    android:scaleType="centerInside" />
+                    android:scaleType="centerInside"
+                    />
 
             </LinearLayout>
 

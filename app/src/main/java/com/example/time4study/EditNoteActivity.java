@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -158,13 +159,20 @@ public class EditNoteActivity extends AppCompatActivity {
         imagesContainer.removeAllViews();
         if (imageUrls != null && !imageUrls.isEmpty()) {
             imagesScroll.setVisibility(HorizontalScrollView.VISIBLE);
-            for (String url : imageUrls) {
-                ImageView imageView = new ImageView(this);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(300, 300);
-                params.setMargins(8, 0, 8, 0);
-                imageView.setLayoutParams(params);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                Glide.with(this).load(url).into(imageView);
+            for (int i = 0; i < imageUrls.size(); i++) {
+                String url = imageUrls.get(i);
+                View imageView = getLayoutInflater().inflate(R.layout.item_note_image, imagesContainer, false);
+                ImageView noteImage = imageView.findViewById(R.id.note_image);
+                ImageButton btnDelete = imageView.findViewById(R.id.btn_delete_image);
+
+                Glide.with(this).load(url).into(noteImage);
+
+                final int position = i;
+                btnDelete.setOnClickListener(v -> {
+                    imageUrls.remove(position);
+                    updateImagesView();
+                });
+
                 imagesContainer.addView(imageView);
             }
         } else {
