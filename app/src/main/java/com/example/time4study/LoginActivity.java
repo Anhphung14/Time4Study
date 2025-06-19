@@ -170,33 +170,58 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            // Lưu thông tin người dùng vào Firestore
-                            Map<String, Object> userProfile = new HashMap<>();
-                            userProfile.put("name", user.getDisplayName());
-                            userProfile.put("email", user.getEmail());
-                            userProfile.put("photoUrl", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
-                            userProfile.put("lastLogin", System.currentTimeMillis());
-
-                            db.collection("users")
-                                    .document(user.getUid())
-                                    .set(userProfile)
-                                    .addOnSuccessListener(aVoid -> {
-                                        // Lưu trạng thái đăng nhập
+                            // Kiểm tra user đã tồn tại trong Firestore chưa
+                            db.collection("users").document(user.getUid())
+                                    .get()
+                                    .addOnSuccessListener(documentSnapshot -> {
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putBoolean("isLoggedIn", true);
                                         editor.putString("userUid", user.getUid());
-                                        editor.putString("username", user.getDisplayName());
                                         editor.putString("email", user.getEmail());
-                                        editor.apply();
+                                        if (documentSnapshot.exists()) {
+                                            // User đã tồn tại, lấy thông tin và chuyển sang MainActivity
+                                            String name = documentSnapshot.getString("name");
+                                            String photoUrl = documentSnapshot.getString("photoUrl");
+                                            editor.putString("username", name);
+                                            if (photoUrl != null) editor.putString("avatar_url", photoUrl);
+                                            editor.apply();
 
-                                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(this, MainActivity.class);
-                                        intent.putExtra("userUid", user.getUid());
-                                        startActivity(intent);
-                                        finish();
+                                            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(this, MainActivity.class);
+                                            intent.putExtra("userUid", user.getUid());
+                                            intent.putExtra("userName", name);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            // User chưa tồn tại, tạo mới
+                                            Map<String, Object> userProfile = new HashMap<>();
+                                            userProfile.put("name", user.getDisplayName());
+                                            userProfile.put("email", user.getEmail());
+                                            userProfile.put("link_avatar", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null);
+                                            userProfile.put("lastLogin", System.currentTimeMillis());
+
+                                            db.collection("users")
+                                                    .document(user.getUid())
+                                                    .set(userProfile)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        editor.putString("username", user.getDisplayName());
+                                                        if (user.getPhotoUrl() != null) editor.putString("avatar_url", user.getPhotoUrl().toString());
+                                                        editor.apply();
+                                                        Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(this, MainActivity.class);
+                                                        intent.putExtra("userUid", user.getUid());
+                                                        intent.putExtra("userName", user.getDisplayName());
+                                                        startActivity(intent);
+                                                        finish();
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        Log.e(TAG, "Lỗi khi lưu thông tin người dùng", e);
+                                                        Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    });
+                                        }
                                     })
                                     .addOnFailureListener(e -> {
-                                        Log.e(TAG, "Lỗi khi lưu thông tin người dùng", e);
+                                        Log.e(TAG, "Lỗi khi kiểm tra user Firestore", e);
                                         Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     });
                         }
