@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="?android:attr/colorBackground">
 
     <androidx.appcompat.widget.Toolbar
@@ -30,47 +31,45 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         android:padding="8dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:background="?attr/colorSurface"
+        android:clipToPadding="false"
         android:elevation="8dp"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:clipToPadding="false"
-        android:layout_margin="8dp">
+        android:padding="12dp">
 
         <EditText
             android:id="@+id/messageInput"
+            style="@style/MyTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginHorizontal="8dp"
             android:hint="Type a message..."
             android:inputType="textMultiLine"
             android:maxLines="4"
-            android:padding="12dp"
-            android:textSize="16sp"
             android:textColor="?android:attr/textColorPrimary"
             android:textColorHint="?android:attr/textColorHint"
-            style="@style/MyTextInputLayout" />
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/sendButton"
+            style="@style/MyButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/rounded_button"
-            android:src="@drawable/ic_send"
             android:contentDescription="Send message"
-            style="@style/MyButton" />
+            android:src="@drawable/ic_send" />
 
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
