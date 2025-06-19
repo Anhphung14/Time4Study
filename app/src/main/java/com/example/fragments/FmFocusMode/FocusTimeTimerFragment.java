@@ -279,7 +279,7 @@ public class FocusTimeTimerFragment extends Fragment {
         if (amoledMode) {
             parentLayout.setBackgroundColor(getResources().getColor(android.R.color.black));
         } else if (darkMode) {
-            parentLayout.setBackgroundResource(R.color.deep_green);
+            parentLayout.setBackgroundResource(R.color.black);
         } else {
             parentLayout.setBackgroundResource(R.color.light_green);
         }
@@ -298,7 +298,7 @@ public class FocusTimeTimerFragment extends Fragment {
         if (amoledMode) {
             parentLayout.setBackgroundColor(getResources().getColor(android.R.color.black));
         } else if (darkMode) {
-            parentLayout.setBackgroundResource(R.color.deep_blue);
+            parentLayout.setBackgroundResource(R.color.black);
         } else {
             parentLayout.setBackgroundResource(R.color.light_blue);
         }

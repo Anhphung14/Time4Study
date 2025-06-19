@@ -35,13 +35,18 @@ import com.bumptech.glide.request.target.Target;
 import com.example.utils.FocusTimeStatsManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HoSoActivity extends AppCompatActivity {
     private static final int REQUEST_EDIT_PROFILE = 1;
@@ -278,9 +283,15 @@ public class HoSoActivity extends AppCompatActivity {
     }
 
     private void toggleTheme(boolean nightModeEnabled) {
+        // Lưu vào app_prefs như cũ
         int newMode = nightModeEnabled ?
                 AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
         userPrefs.edit().putInt("theme_mode", newMode).apply();
+
+        // Lưu vào PomodoroSettings.xml
+        SharedPreferences pomodoroSettings = getSharedPreferences("PomodoroSettings", MODE_PRIVATE);
+        pomodoroSettings.edit().putBoolean("darkMode", nightModeEnabled).apply();
+
         AppCompatDelegate.setDefaultNightMode(newMode);
         recreate();
     }
@@ -321,27 +332,70 @@ public class HoSoActivity extends AppCompatActivity {
         if (currentUser == null) return;
 
         String uid = currentUser.getUid();
-        LocalDate currentDate = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            currentDate = LocalDate.now();
-        }
-        LocalDate sevenDaysAgo = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            sevenDaysAgo = currentDate.minusDays(7);
-        }
 
         db.collection("studyGoals")
                 .whereEqualTo("uid", uid)
-                .whereGreaterThanOrEqualTo("endDate", sevenDaysAgo.toString())
-                .whereLessThanOrEqualTo("endDate", currentDate.toString())
-                .whereEqualTo("progress", "100%")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    int completedGoals = queryDocumentSnapshots.size();
-                    goalHoanThanh.setText(String.valueOf(completedGoals));
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        goalHoanThanh.setText("0");
+                        return;
+                    }
+
+                    // Tạo một list để lưu tất cả các promises
+                    List<Task<QuerySnapshot>> tasksList = new ArrayList<>();
+
+                    // Lấy tất cả tasks của mỗi goal
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        Task<QuerySnapshot> tasksQuery = db.collection("studyGoals")
+                                .document(document.getId())
+                                .collection("goalTasks")
+                                .get();
+                        tasksList.add(tasksQuery);
+                    }
+
+                    // Đợi tất cả queries hoàn thành
+                    Tasks.whenAllSuccess(tasksList)
+                            .addOnSuccessListener(results -> {
+                                int completedGoals = 0;
+
+                                // Duyệt qua kết quả của mỗi goal
+                                for (Object result : results) {
+                                    QuerySnapshot taskSnapshot = (QuerySnapshot) result;
+                                    int totalTasks = taskSnapshot.size();
+                                    int completedTasks = 0;
+
+                                    for (QueryDocumentSnapshot taskDoc : taskSnapshot) {
+                                        Boolean isCompleted = taskDoc.getBoolean("isCompleted");
+                                        Boolean completed = taskDoc.getBoolean("completed");
+
+                                        if ((isCompleted != null && isCompleted) ||
+                                                (completed != null && completed)) {
+                                            completedTasks++;
+                                        }
+                                    }
+
+                                    // Kiểm tra nếu tất cả tasks đã hoàn thành
+                                    if (totalTasks > 0 && completedTasks == totalTasks) {
+                                        completedGoals++;
+                                    }
+                                }
+
+                                // Cập nhật UI sau khi đã đếm xong
+                                goalHoanThanh.setText(String.valueOf(completedGoals));
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(HoSoActivity.this,
+                                        "Lỗi khi tải dữ liệu: " + e.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                                goalHoanThanh.setText("0");
+                            });
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Lỗi khi tải dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,
+                            "Lỗi khi tải goals: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                    goalHoanThanh.setText("0");
                 });
     }
 
