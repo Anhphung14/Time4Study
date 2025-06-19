@@ -701,12 +701,12 @@ public class StudyScheduleActivity extends AppCompatActivity {
                             .document(calendarId)
                             .delete()
                             .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(this, "Deleted Calendar " + title, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Đã xóa calendar " + title, Toast.LENGTH_SHORT).show();
                                 Log.d("Calendar", "Đã xóa calendar với ID: " + calendarId);
                                 updateCalendar();
                             })
                             .addOnFailureListener(e -> {
-                                Toast.makeText(this, "Error deleting!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Lỗi khi xóa!", Toast.LENGTH_SHORT).show();
                                 Log.d("Calendar", "Lỗi khi xóa: " + e.getMessage());
                             });
 
@@ -993,7 +993,10 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 StudyScheduleActivity.this.calendarMap.clear(); // Xóa dữ liệu cũ
                 StudyScheduleActivity.this.calendarMap.putAll(calendarMap);
 
-                ArrayList<String> spinnerItems = new ArrayList<>(calendarMap.values());
+//                ArrayList<String> spinnerItems = new ArrayList<>(calendarMap.values());
+                ArrayList<String> spinnerItems = new ArrayList<>();
+                spinnerItems.add("-- Select Calendar --"); // Mục mặc định
+                spinnerItems.addAll(calendarMap.values());
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(StudyScheduleActivity.this, android.R.layout.simple_spinner_item, spinnerItems);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
@@ -1081,7 +1084,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
                     String calendarItem = spinner.getSelectedItem().toString();
 
                     // Kiểm tra dữ liệu hợp lệ
-                    if (title.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                    if (title.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty() || calendarItem.equals("-- Select Calendar --")) {
                         Toast.makeText(this, "Vui lòng điền đầy đủ các trường", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -1213,7 +1216,9 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 StudyScheduleActivity.this.calendarMap.clear(); // Xóa dữ liệu cũ
                 StudyScheduleActivity.this.calendarMap.putAll(calendarMap);
 
-                ArrayList<String> spinnerItems = new ArrayList<>(calendarMap.values());
+                ArrayList<String> spinnerItems = new ArrayList<>();
+                spinnerItems.add("-- Select Calendar --");
+                spinnerItems.addAll(calendarMap.values());
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(StudyScheduleActivity.this, android.R.layout.simple_spinner_item, spinnerItems);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
@@ -1295,7 +1300,7 @@ public class StudyScheduleActivity extends AppCompatActivity {
                     String calendarItem = spinner.getSelectedItem().toString();
 
                     // Kiểm tra dữ liệu hợp lệ
-                    if (title.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+                    if (title.isEmpty() || date.isEmpty() || startTime.isEmpty() || endTime.isEmpty() || calendarItem.equals("-- Select Calendar --")) {
                         Toast.makeText(this, "Vui lòng điền đầy đủ các trường", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -1343,11 +1348,11 @@ public class StudyScheduleActivity extends AppCompatActivity {
         db.collection("events")
                 .add(event)
                 .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(this, "update sự kiện thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Thêm sự kiện thành công", Toast.LENGTH_SHORT).show();
                     updateEvent();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Lỗi khi update sự kiện: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Lỗi khi thêm sự kiện: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -1386,9 +1391,11 @@ public class StudyScheduleActivity extends AppCompatActivity {
                 .delete()
                 .addOnSuccessListener(aVoid -> {
                     updateEvent();
+                    Toast.makeText(this, "Xóa event thành công", Toast.LENGTH_SHORT).show();
                     Log.d("Firestore", "Event deleted with ID: " + eventId);
                 })
                 .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Có lỗi khi xoá event", Toast.LENGTH_SHORT).show();
                     Log.e("Firestore", "Error deleting event", e);
                 });
     }
